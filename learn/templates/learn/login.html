@@ -1,0 +1,68 @@
+{% extends "learn/layout.html" %} {% load crispy_forms_tags %} {% load
+staticfiles %}
+<!-- Content block -->
+{% block content %}
+<div class="card mb-2">
+  <div class="card-body">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol
+        id="exclamation-triangle-fill"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+        />
+      </symbol>
+    </svg>
+    <div class="alert alert-primary" role="alert">
+      <h4 class="alert-heading">
+        <svg
+          class="bi flex-shrink-0 me-2"
+          width="25"
+          height="25"
+          role="img"
+          aria-label="Info:"
+        >
+          <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+        UNAUTHORIZED ACCESS TO THIS WEBSITE IS PROHIBITED
+      </h4>
+
+      <p>
+        You must have explicit, authorized permission to access or configure
+        this website. Unauthorized attempts and actions to access or use this
+        system may result in civil and/or criminal penalties. All activities
+        performed on this website are logged and monitored.
+      </p>
+      <hr />
+      <p class="mb-0">
+        For technical issues/inquiry email the admin at admin@gmail.com
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+<!-- Side Content -->
+{% block sidecontent %}
+<div class="card">
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Log In</legend>
+        {{ form|crispy }}
+      </fieldset>
+      <div class="form-group mt-2">
+        <button class="btn btn-outline-info mb-2" type="submit">Login</button>
+      </div>
+    </form>
+    <div class="border-top pt-3">
+      <small class="text-muted">
+        Forgot password?
+        <a class="ml-2" href="#">here</a>
+      </small>
+    </div>
+  </div>
+</div>
+{% endblock sidecontent %}
