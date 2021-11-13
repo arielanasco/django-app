@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include('learn.urls')),
     path('login/', auth_views.LoginView.as_view(template_name='learn/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='learn/logout.html'), name='logout'),
