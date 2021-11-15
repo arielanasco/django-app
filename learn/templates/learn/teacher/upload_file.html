@@ -1,0 +1,26 @@
+{% extends "learn/layout.html" %} {% load staticfiles %}
+<!-- Main Section -->
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h1>List of uploaded files</h1>
+    <script>
+      window.CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/";
+    </script>
+    {{ block.super }}
+    <form>
+      {{ myform.media }} {{ myform.as_p }}
+      <input type="submit" />
+    </form>
+  </div>
+</div>
+{% endblock content %}
+
+<!-- Profile Section -->
+{% block sidecontent %}
+<div class="card">
+  <div class="card-body">
+    <h1>Upload Section</h1>
+  </div>
+</div>
+{% endblock sidecontent %}

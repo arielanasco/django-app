@@ -25,12 +25,13 @@ SECRET_KEY = '_@ir*v6x47y-jd(xd+iw=v4(9i+n8*9gh11!uutn2976&-ybs!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.8.113','scraper-dev.linkmind.co.jp','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.8.107','scraper-dev.linkmind.co.jp','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'ckeditor',
     'learn.apps.LearnConfig',
     'crispy_forms',
     'django.contrib.admin',
@@ -75,17 +76,13 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'django.cnf'),
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
+            "autocommit": True,
         },
     }
 }
