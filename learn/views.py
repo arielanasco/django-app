@@ -1,23 +1,17 @@
+from re import sub
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-# Create your views here.
-contexts  = [
-    {'subject': 'Mathematics of the Modern World', 'desc':'This is a wider card with supporting text below as a natural lead-in to additional content.'},
-    {'subject': 'Science and Technology', 'desc':'This is a wider card with supporting text below as a natural lead-in to additional content.'},
-    {'subject': 'College Algebra', 'desc':'This is a wider card with supporting text below as a natural lead-in to additional content.'},
-    {'subject': 'College Algebra', 'desc':'This is a wider card with supporting text below as a natural lead-in to additional content.'},
-    {'subject': 'College Algebra', 'desc':'This is a wider card with supporting text below as a natural lead-in to additional content.'},
-    {'subject': 'College Algebra', 'desc':'This is a wider card with supporting text below as a natural lead-in to additional content.'},
-    {'subject': 'College Algebra', 'desc':'This is a wider card with supporting text below as a natural lead-in to additional content.'},
-]
+from .models import Subject,Student
+from django.contrib.auth.models import User
 
 @login_required
 def home(request):
+    user = User.objects.get(username=request.user.get_username())
     if request.user.is_staff:
-        return render(request, 'learn/teacher/home.html', {'contexts':contexts})    
-    return render(request, 'learn/student/home.html', {'contexts':contexts})
+        return render(request, 'learn/teacher/home.html', {'contexts':contexts})
+    data = Student.objects.get(student_id=user.id)
+    return render(request, 'learn/student/home.html', {'data':data})
 
 @login_required
 def view_subject(request):

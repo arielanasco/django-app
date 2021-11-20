@@ -7,31 +7,157 @@
   </div>
 {% endfor %}
 <div class="row card-group">
-  {% for context in contexts %}
+{% if data.subject1_id %}
   <div class="col-lg-4 col-md-6 col-sm-12 py-2">
-  <div class="card h-100">
-      <img src="{% static 'images/not-found.png' %}" width="200" height="200" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{ context.subject }}</h5>
-        <p class="card-text text-muted"><small>{{ context.desc }}</small></p>
-      </div>
-      <div class="card-footer">
-        <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
-            <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-          </svg> View Subject
-        </button>
-      </div>
+    <div class="card h-100">
+        <img src="{{ data.subject1.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject1.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject1.description }}<br>Adviser: {{ data.subject1.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
   </div>
+{% endif%}
+{% if data.subject2_id %}
+  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
+    <div class="card h-100">
+        <img src="{{ data.subject2.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject2.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject2.description }}<br>Adviser: {{ data.subject2.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
   </div>
-  {% endfor %}
+{% endif%}
+{% if data.subject3_id %}
+  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
+    <div class="card h-100">
+        <img src="{{ data.subject3.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject3.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject3.description }}<br>Adviser: {{ data.subject3.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
+  </div>
+{% endif%}
+{% if data.subject4_id %}
+  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
+    <div class="card h-100">
+        <img src="{{ data.subject4.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject4.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject4.description }}<br>Adviser: {{ data.subject4.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
+  </div>
+{% endif%}
+{% if data.subject5_id %}
+  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
+    <div class="card h-100">
+        <img src="{{ data.subject5.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject5.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject5.description }}<br>Adviser: {{ data.subject5.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
+  </div>
+{% endif%}
+{% if data.subject6_id %}
+  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
+    <div class="card h-100">
+        <img src="{{ data.subject6.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject6.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject6.description }}<br>Adviser: {{ data.subject6.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
+  </div>
+{% endif%}
+{% if data.subject7_id %}
+  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
+    <div class="card h-100">
+        <img src="{{ data.subject7.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject7.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject7.description }}<br>Adviser: {{ data.subject7.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
+  </div>
+{% endif%}
+{% if data.subject8_id %}
+  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
+    <div class="card h-100">
+        <img src="{{ data.subject8.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ data.subject2.subject }}</h5>
+          <p class="card-text text-muted"><small>Description: {{ data.subject8.description }}<br>Adviser: {{ data.subject8.teacher }}</small></p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary " onclick="location.href='{% url 'view-subject' %}'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+            </svg> View Subject
+          </button>
+        </div>
+    </div>
+  </div>
+{% endif%}
 </div>
 {% endblock content %} 
 
 {% block sidecontent %}
 <div class="card ">
   <div class="card-body">
-    <h3>Hi {{ user }}!</h3>
+    <h3>Hi {{ data.student.first_name }}!</h3>
     <p class='text-muted'>Currently enrolled subject(s).
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">Mathematics of the Modern World <span class="badge bg-primary">4</span></a>

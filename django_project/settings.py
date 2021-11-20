@@ -31,15 +31,15 @@ ALLOWED_HOSTS = ['192.168.8.107','scraper-dev.linkmind.co.jp','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'ckeditor',
-    'learn.apps.LearnConfig',
-    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'learn.apps.LearnConfig',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
