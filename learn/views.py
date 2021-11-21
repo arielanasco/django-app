@@ -9,9 +9,10 @@ from django.contrib.auth.models import User
 def home(request):
     user = User.objects.get(username=request.user.get_username())
     if request.user.is_staff:
-        return render(request, 'learn/teacher/home.html', {'contexts':contexts})
-    data = Student.objects.get(student_id=user.id)
-    return render(request, 'learn/student/home.html', {'data':data})
+        subjects = Subject.objects.filter(teacher_id=user.id)
+        return render(request, 'learn/teacher/home.html', {'subjects':subjects})
+    subjects = Student.objects.filter(student_id = user.id)
+    return render(request, 'learn/student/home.html', {'subjects':subjects})
 
 @login_required
 def view_subject(request):

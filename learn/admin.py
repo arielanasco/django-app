@@ -9,7 +9,7 @@ class SubjectData(admin.ModelAdmin):
 
 class StudentData(admin.ModelAdmin):
     form = StudentForm
-    list_display = ('student', 'subject1',  'subject2', 'subject3', 'subject4', 'subject5', 'subject6', 'subject7', 'subject8',)
+    list_display = ('student', 'subject')
 
 admin.site.site_header  =  "IMath Admin Portal"  
 admin.site.site_title  =  "IMath Admin Dashboard"

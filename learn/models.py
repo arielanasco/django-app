@@ -26,15 +26,8 @@ class Subject(models.Model):
         return f"{self.subject}"
 
 class Student(models.Model):
-    student = models.OneToOneField(User, on_delete=models.CASCADE,max_length=100,null=False)
-    subject1 = models.ForeignKey(Subject, related_name="subject_1", on_delete=models.SET_NULL,max_length=100,null=True)
-    subject2 = models.ForeignKey(Subject, related_name="subject_2", on_delete=models.SET_NULL,max_length=100,null=True)
-    subject3 = models.ForeignKey(Subject, related_name="subject_3", on_delete=models.SET_NULL,max_length=100,null=True)
-    subject4 = models.ForeignKey(Subject, related_name="subject_4", on_delete=models.SET_NULL,max_length=100,null=True)
-    subject5 = models.ForeignKey(Subject, related_name="subject_5", on_delete=models.SET_NULL,max_length=100,null=True)
-    subject6 = models.ForeignKey(Subject, related_name="subject_6", on_delete=models.SET_NULL,max_length=100,null=True)
-    subject7 = models.ForeignKey(Subject, related_name="subject_7", on_delete=models.SET_NULL,max_length=100,null=True)
-    subject8 = models.ForeignKey(Subject, related_name="subject_8", on_delete=models.SET_NULL,max_length=100,null=True)
+    student = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
+    subject = models.OneToOneField(Subject, on_delete=models.CASCADE,max_length=100,null=True)
 
 
     class Meta:
