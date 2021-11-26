@@ -15,11 +15,11 @@ def home(request):
     return render(request, 'learn/student/home.html', {'subjects':subjects})
 
 @login_required
-def view_subject(request):
+def view_subject(request,id):
+    subject = Subject.objects.get(id=id)
     if request.user.is_staff:
-        messages.info(request,"You are not allowed to access it.")
-        return redirect('learn-home')
-    return render(request, 'learn/student/view.html')
+        return render(request, 'learn/teacher/view.html', {'subject':subject})
+    return render(request, 'learn/student/view.html', {'subject':subject})
 
 @login_required
 def profile(request):

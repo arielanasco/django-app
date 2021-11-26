@@ -1,9 +1,9 @@
 {% extends "learn/layout.html" %} {% load staticfiles %} {% block content %}
 <div class="container-fluid">
-  <div class="row bg-primary text-center text-white shadow">
+  <div class="row bg-primary text-center text-white rounded box-shadow">
     <h3>Subjects Information</h3>
   </div>
-  <div class="row mt-2 p-0 shadow">
+  <div class="row rounded mt-2 box-shadow shadow">
     {% for subject in subjects %}
     <div class="col-lg-4 col-md-6 col-sm-12 my-2">
       <div class="card h-100">
@@ -25,7 +25,7 @@
           <button
             class="btn btn-primary"
             type="button"
-            onclick="location.href='{% url 'view-subject' %}'"
+            onclick="location.href='{% url 'view-subject-student' subject.id %}'"
           >
             Visit
           </button>
@@ -38,21 +38,16 @@
 
 {% endblock content %} {% block sidecontent %}
 <div class="container-fluid mb-5">
-  <div class="row bg-primary text-white shadow">
+  <div class="row bg-primary text-white rounded box-shadow">
     <h3>Profile Information</h3>
   </div>
-  <div class="row mt-2">
-    <div class="col text-center shadow p-2">
+  <div class="row rounded mt-2 box-shadow shadow">
+    <div class="col text-center p-2">
       <img
         src="{{ user.profile.image.url }}"
-        style="
-          border-radius: 50%;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        "
-        width="80"
-        height="80"
+        class="rounded mx-auto d-block mt-3"
+        width="100"
+        height="100"
         alt="Avatar"
       />
       <style>
