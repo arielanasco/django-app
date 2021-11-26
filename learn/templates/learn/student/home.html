@@ -1,53 +1,77 @@
-{% extends "learn/layout.html" %}
-{% load staticfiles %}
-{% block content %}
-<div class="row card-group">
-{% for subject in subjects %}
-  <div class="col-lg-4 col-md-6 col-sm-12 py-2">
-    <div class="card h-100">
-        <img src="{{ subject.subject.image.url }}" width="150" height="150" class="card-img-top" alt="...">
+{% extends "learn/layout.html" %} {% load staticfiles %} {% block content %}
+<div class="container-fluid">
+  <div class="row bg-primary text-center text-white shadow">
+    <h3>Subjects Information</h3>
+  </div>
+  <div class="row mt-2 p-0 shadow">
+    {% for subject in subjects %}
+    <div class="col-lg-4 col-md-6 col-sm-12 my-2">
+      <div class="card h-100">
+        <img
+          src="{{ subject.subject.image.url }}"
+          width="200"
+          height="200"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title">{{ subject.subject.subject }}</h5>
-          <p class="card-text text-muted"><small>Adviser: {{ subject.subject.teacher.get_full_name }}</small></p>
-          <p class="card-text text-muted"><small>Description: {{ subject.subject.description }}</small></p>
+          <small>{{ subject.subject.teacher.get_full_name }}</small>
+          <p class="card-text text-muted">
+            <small>{{ subject.subject.description }}</small>
+          </p>
         </div>
-        <div class="card-footer">
-          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="View Subject" onclick="location.href='{% url 'view-subject' %}'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-            </svg>
+        <div class="card-footer d-grid gap-2">
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="location.href='{% url 'view-subject' %}'"
+          >
+            Visit
           </button>
         </div>
+      </div>
     </div>
+    {% endfor %}
   </div>
-{% endfor %}
 </div>
-{% endblock content %} 
 
-{% block sidecontent %}
-<div class="card ">
-  <div class="card-body" >
-    <img src="{{ user.profile.image.url }}" style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto;" width="80" height="80" alt="Avatar">
-    <h3 class="text-center">@{{ user.username }}</h3>
-    <p class='text-center'>
-      <ul class="list-group">
-        <li class="list-group-item active">Profile Information</li>
-        <li class="list-group-item">{{ user.get_full_name }}</li>
-        <li class="list-group-item">
-          {% if user.is_active  %}
-              <span class="badge bg-success">Active</span>
-          {%  endif %}
-          {% if user.is_staff  %}
-              <span class="badge bg-primary">Teacher</span>
-          {% else %}
-              <span class="badge bg-secondary">Student</span>
-          {%  endif %}
-        </li>
-        <li class="list-group-item">{{ user.last_login }}</li>
-      </ul>
-    </p>
+{% endblock content %} {% block sidecontent %}
+<div class="container-fluid mb-5">
+  <div class="row bg-primary text-white shadow">
+    <h3>Profile Information</h3>
+  </div>
+  <div class="row mt-2">
+    <div class="col text-center shadow p-2">
+      <img
+        src="{{ user.profile.image.url }}"
+        style="
+          border-radius: 50%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        "
+        width="80"
+        height="80"
+        alt="Avatar"
+      />
+      <style>
+        .dot {
+          height: 20px;
+          width: 20px;
+          background-color: rgb(16, 190, 16);
+          border-radius: 50%;
+          display: inline-block;
+        }
+      </style>
+      <h3>{{ user.get_full_name }} <span class="dot"></span></h3>
+      <p class="text-muted">@{{ user.username }}</p>
+      {% if user.is_staff %}
+      <p class="badge bg-primary">Teacher</p>
+      {% else %}
+      <p class="badge bg-secondary">Student</p>
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock sidecontent %}
-
