@@ -3,7 +3,7 @@
   <div class="row bg-primary text-center text-white rounded box-shadow">
     <h3>Subjects Information</h3>
   </div>
-  <div class="row rounded mt-2 box-shadow shadow">
+  <div class="row rounded box-shadow shadow">
     {% for subject in subjects %}
     <div class="col-lg-4 col-md-6 col-sm-12 my-2">
       <div class="card h-100">
@@ -37,11 +37,11 @@
 </div>
 
 {% endblock content %} {% block sidecontent %}
-<div class="container-fluid mb-5">
+<div class="container-fluid">
   <div class="row bg-primary text-white rounded box-shadow">
     <h3>Profile Information</h3>
   </div>
-  <div class="row rounded mt-2 box-shadow shadow">
+  <div class="row rounded box-shadow shadow">
     <div class="col text-center p-2">
       <img
         src="{{ user.profile.image.url }}"
