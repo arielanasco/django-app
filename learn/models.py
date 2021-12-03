@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from django.utils import timezone
+import os
+from django.conf import settings
+
 # Create your models here.
 
 class Profile(models.Model):
@@ -27,6 +31,7 @@ class Subject(models.Model):
     image = models.ImageField(default="default.jpg",upload_to="subject_pics",null=False)
     description = models.CharField(max_length=100,null=False)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
+    timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name_plural = "subjects"
@@ -45,7 +50,7 @@ class Subject(models.Model):
 class Student(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
     subject = models.OneToOneField(Subject, on_delete=models.CASCADE,max_length=100,null=True)
-
+    timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name_plural = "students"
@@ -54,3 +59,22 @@ class Student(models.Model):
         if self.student.first_name == "":
             return f"{self.student.username}"
         return f"{self.student.first_name} {self.student.last_name}"
+
+class File(models.Model):
+    subject = models.CharField(max_length=100,null=False)
+    teacher = models.CharField(max_length=100,null=False)
+    title = models.CharField(max_length=100,null=False)
+    description =  models.CharField(max_length=100,null=False)
+    file = models.FileField(upload_to="files",null=False)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = "Files"
+
+    def __str__(self):
+        return f"{self.title}"
+
+    def delete(self, *args, **kwargs):
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.file.name))
+        super(File,self).delete(*args,**kwargs)
+

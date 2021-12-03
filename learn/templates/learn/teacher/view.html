@@ -1,40 +1,54 @@
-{% extends "learn/layout.html" %} {% load staticfiles %}
+{% extends "learn/layout.html" %}{% load crispy_forms_tags %}{% load humanize %}
+{% load staticfiles %}
 <!-- Main Section -->
 {% block content %}
 <div class="container-fluid">
   <div class="row bg-primary text-center text-white">
-    <h3>List of Modules</h3>
+    <h3>Modules</h3>
   </div>
-  <div class="row shadow p-2">
-    <div class="card col-md-4 p-0">
-      <h5 class="card-header">Featured</h5>
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">
-          With supporting text below as a natural lead-in to additional content.
-        </p>
-      </div>
-      <div class="card-footer d-grid gap-2">
-        <button
-          class="btn btn-primary"
-          type="button"
-          onclick="location.href='{% url 'view-subject-teacher' subject.id %}'"
+  <div class="row shadow p-3">
+    {% for file in files %}
+    <div class="col-lg-4 col-md-6 col-sm-12 p-0">
+      <div class="card m-2">
+        <div
+          class="card-body"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="{{file.title}}"
         >
-          Visit
-        </button>
+          <h5 class="card-title text-truncate">{{file.title}}</h5>
+          <p class="card-text text-muted text-truncate">
+            <small>{{file.description}}</small>
+          </p>
+          <p class="card-text text-muted">
+            <small>Uploaded {{file.timestamp | naturaltime }}</small>
+          </p>
+        </div>
+        <div class="card-footer d-grid justify-content-end">
+          <button
+            class="btn btn-danger btn-sm"
+            type="button"
+            onclick="location.href='{% url 'remove-file' file.id %}'"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
+
+    {% endfor %}
   </div>
   <div class="row bg-primary text-center text-white">
-    <h3>List of Activity</h3>
+    <h3>Activities</h3>
   </div>
-  <div class="row shadow p-2">
-    <div class="card col-md-4 p-0">
-      <h5 class="card-header">Featured</h5>
+  <div class="row shadow g-1 p-3">
+    <!-- Test Cards -->
+    <div class="card col-md-4 p-0 m-1">
+      <h5 class="card-header">Multiple Choice</h5>
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
+        <h5 class="card-title">Simplifying Monomial Factor</h5>
         <p class="card-text">
-          With supporting text below as a natural lead-in to additional content.
+          Activity for the Simplifying Monomial Factor Module.
         </p>
       </div>
       <div class="card-footer d-grid gap-2">
@@ -43,10 +57,30 @@
           type="button"
           onclick="location.href='{% url 'view-subject-teacher' subject.id %}'"
         >
-          Visit
+          View
         </button>
       </div>
     </div>
+    <div class="card col-md-4 p-0 m-1">
+      <h5 class="card-header">Question and Answer</h5>
+      <div class="card-body">
+        <h5 class="card-title">Simplifying Monomial Factor</h5>
+        <p class="card-text">
+          Activity for the Simplifying Monomial Factor Module.
+        </p>
+      </div>
+      <div class="card-footer d-grid gap-2">
+        <button
+          class="btn btn-primary"
+          type="button"
+          onclick="location.href='{% url 'view-subject-teacher' subject.id %}'"
+          disabled
+        >
+          Answered
+        </button>
+      </div>
+    </div>
+    <!-- Test Cards -->
   </div>
 </div>
 {% endblock content %}
@@ -76,62 +110,109 @@
       <div class="d-grid gap-2 btn-group">
         <button
           class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#modal-upload"
           type="button"
-          onclick="location.href='{% url 'upload-file' %}'"
         >
           Upload Module
         </button>
-        <div class="btn-group">
-          <button
-            class="btn btn-primary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-          >
-            Create activity
-          </button>
-          <div class="dropdown-menu">
-            <a
-              class="dropdown-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-body"
-              >Question and Answer</a
-            >
-            <script>
-              $("#modal-body").on("shown.bs.modal", function (e) {
-                alert("Today's date is ");
-              });
-            </script>
-            <a
-              class="dropdown-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-body"
-              >Multiple Choice</a
-            >
-          </div>
-        </div>
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#modal-activity"
+          type="button"
+        >
+          Create activity
+        </button>
       </div>
     </div>
   </div>
 </div>
-<!-- The Modal -->
-<div class="modal fade" id="modal-body">
+
+<!-- The Modal Upload module -->
+<div class="modal fade" id="modal-upload">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Upload a file</h4>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          {{ form.non_field_errors }}
+          <div class="mb-3">
+            {{ form.subject.errors }}
+            <label for="subject" class="form-label"> Subject </label>
+            {{ form.subject }}
+          </div>
+          <div class="mb-3">
+            {{ form.title.errors }}
+            <label for="title" class="form-label"> Title </label>
+            {{ form.title }}
+          </div>
+          <div class="mb-3">
+            {{ form.description.errors }}
+            <label for="description" class="form-label"> Description </label>
+            {{ form.description }}
+          </div>
+          <div class="mb-3">
+            {{ form.file.errors }}
+            <label for="file" class="form-label"> File </label>
+            {{ form.file }}
+          </div>
+          <div class="mb-3">
+            {{ form.teacher.errors }}
+            <label for="teacher" class="form-label"> Teacher </label>
+            {{ form.teacher }}
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            onclick="location.href='{% url 'view-subject-teacher' subject.id %}'"
+            name="FileUpload"
+          >
+            Upload
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- The Modal Activity -->
+<div class="modal fade" id="modal-activity">
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">This</h4>
+        <h4 class="modal-title">Create an Activity</h4>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        <div class="form-floating">
-          <select class="form-select" id="sel1" name="sellist">
-            <option>Subject 1</option>
-            <option>Subject 2</option>
-            <option>Subject 3</option>
-            <option>Subject 4</option>
-          </select>
-          <label for="sel1" class="form-label">Select Subject</label>
+        <div class="form-floating mt-3 mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="category"
+            placeholder="Enter category"
+            name="Subject"
+            value="{{subject.subject}}"
+            data-bs-toggle="tooltip"
+            title="Automatically set to the current subject."
+            disabled
+          />
+          <label for="category">Subject</label>
         </div>
         <div class="form-floating mt-3 mb-3">
           <input
@@ -140,11 +221,21 @@
             id="category"
             placeholder="Enter category"
             name="category"
-            value="Ariel Anasco"
+            value="{{subject.teacher.get_full_name}}"
+            data-bs-toggle="tooltip"
+            title="Automatically set to the current teacher."
             disabled
           />
           <label for="category">Teacher</label>
         </div>
+        <div class="form-floating mt-3 mb-3">
+          <select class="form-select" id="testType" name="testType">
+            <option>Question and Answer</option>
+            <option>Multiple Choice</option>
+          </select>
+          <label for="sel1" class="form-label">Select type</label>
+        </div>
+
         <div class="form-floating mt-3 mb-3">
           <input
             type="text"
@@ -163,10 +254,15 @@
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary">Create</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="location.href='{% url 'create-activity' %}'"
+        >
+          Create
+        </button>
       </div>
     </div>
   </div>
 </div>
-
 {% endblock sidecontent %}

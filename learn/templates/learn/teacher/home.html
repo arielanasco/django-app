@@ -1,12 +1,13 @@
-{% extends "learn/layout.html" %} {% load staticfiles %} {% block content %}
+{% extends "learn/layout.html" %} {% load staticfiles %} {% load humanize %}
+{%block content %}
 <div class="container-fluid">
-  <div class="row bg-primary text-center text-white shadow">
+  <div class="row bg-primary text-center text-white">
     <h3>Subjects Information</h3>
   </div>
-  <div class="row rounded box-shadow shadow">
+  <div class="row shadow p-3">
     {% for subject in subjects %}
-    <div class="col-lg-4 col-md-6 col-sm-12 my-2">
-      <div class="card h-100">
+    <div class="col-lg-4 col-md-6 col-sm-12 p-0">
+      <div class="card m-2">
         <img
           src="{{ subject.image.url }}"
           width="200"
@@ -14,11 +15,19 @@
           class="card-img-top"
           alt="..."
         />
-        <div class="card-body">
-          <h5 class="card-title">{{ subject.subject }}</h5>
+        <div
+          class="card-body"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="{{ subject.description }}"
+        >
+          <h5 class="card-title text-truncate">{{ subject.subject }}</h5>
           <small>{{ subject.teacher.get_full_name }}</small>
-          <p class="card-text text-muted">
+          <p class="card-text text-muted text-truncate">
             <small>{{ subject.description }}</small>
+          </p>
+          <p class="card-text text-muted">
+            <small>Started {{subject.timestamp | naturaltime }}</small>
           </p>
         </div>
         <div class="card-footer d-grid gap-2">
