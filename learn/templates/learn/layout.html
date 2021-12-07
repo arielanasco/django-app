@@ -80,8 +80,10 @@
         </div>
       </div>
       <div class="row mt-1">
-        <div class="col-md-3">{% block sidecontent %}{% endblock %}</div>
-        <div class="col-md-9">{% block content %}{% endblock %}</div>
+        <div class="col-md-3 p-0 m-0">
+          {% block sidecontent %}{% endblock %}
+        </div>
+        <div class="col-md-9 p-0 m-0">{% block content %}{% endblock %}</div>
       </div>
     </main>
   </body>

@@ -5,7 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Subject,Student,File
 from django.contrib.auth.models import User
 from .forms import FileForm
-
+import os
+from django.conf import settings
+from django.http import HttpResponse, Http404
 
 @login_required
 def home(request):
@@ -45,7 +47,16 @@ def delete_file(request,id):
 def profile(request):
     return render(request, 'learn/common/profile.html')
 
-
+@login_required
+def download_file(request,path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/force-download")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    messages.error(request,f"File {file_path} is deleted...")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def upload_file(request):
