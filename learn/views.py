@@ -34,12 +34,16 @@ def view_subject(request,id):
             form = FileForm(initial={'subject':subject.subject,'teacher':request.user.get_full_name()})
             files = File.objects.filter(subject=subject.subject)
         return render(request, 'learn/teacher/view.html', {'subject':subject,'files':files,'form':form})
-    return render(request, 'learn/student/view.html', {'subject':subject})
+    files = File.objects.filter(subject=subject.subject)
+    return render(request, 'learn/student/view.html', {'subject':subject,'files':files})
 
 def delete_file(request,id):
-    file = File.objects.get(id=id)
-    file.delete()
-    messages.success(request,"File deleted successfully...")
+    if request.user.is_staff:
+        file = File.objects.get(id=id)
+        file.delete()
+        messages.success(request,"File deleted successfully...")
+        return redirect(request.META.get('HTTP_REFERER'))
+    messages.error(request,f"You are not allowed to do it...")
     return redirect(request.META.get('HTTP_REFERER'))
 
 
