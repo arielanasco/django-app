@@ -9,13 +9,14 @@ from django.conf import settings
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default="default.jpg",upload_to="profile_pics")
+    image = models.ImageField(default="profile_pics/default.jpg",upload_to="profile_pics")
 
     class Meta:
-        verbose_name_plural = "profiles"
+        verbose_name_plural = "Profiles"
 
-    def save(self):
-        super().save()
+    def save(self,*args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+    
         img = Image.open(self.image.path)
         if img.height > 300 or img.width > 300:
             output_size = (300,300)
@@ -34,11 +35,13 @@ class Subject(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        verbose_name_plural = "subjects"
+        verbose_name_plural = "Subjects"
 
-    def save(self):
-        super().save()
+    def save(self,*args, **kwargs):
+        super(Subject, self).save(*args, **kwargs)
+    
         img = Image.open(self.image.path)
+
         if img.height > 300 or img.width > 300:
             output_size = (300,300)
             img.thumbnail(output_size)
@@ -53,12 +56,27 @@ class Student(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        verbose_name_plural = "students"
+        verbose_name_plural = "Students"
 
     def __str__(self):
         if self.student.first_name == "":
             return f"{self.student.username}"
         return f"{self.student.first_name} {self.student.last_name}"
+
+class Activity(models.Model):
+    subject = models.CharField(max_length=100,null=False)
+    teacher = models.CharField(max_length=100,null=False)
+    title = models.CharField(max_length=100,null=False,unique=True)
+    description =  models.CharField(max_length=100,null=False)
+    is_multiple_choice = models.BooleanField(default=True)
+    is_deployed = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = "Activities"
+
+    def __str__(self):
+        return f"{self.title}"
 
 class File(models.Model):
     subject = models.CharField(max_length=100,null=False)

@@ -10,7 +10,7 @@
     {% if files %}
       {% for file in files %}
         <div class="col-lg-4 col-md-6 col-sm-12 p-0 m-0">
-          <div class="card shadow mx-2 mb-2">
+          <div class="card h-100 shadow mx-2 mb-2">
             <div
               class="card-body"
               data-toggle="tooltip"
@@ -58,7 +58,7 @@
     {% if activities %}
       {% for activity in activities %}
         <div class="col-lg-4 col-md-6 col-sm-12 p-0 m-0">
-          <div class="card shadow mx-2 my-2">
+          <div class="card h-100 shadow mx-2 my-2">
             <div
               class="card-body"
               data-toggle="tooltip"
@@ -78,16 +78,16 @@
                 <button
                   class="btn btn-outline-danger btn-sm"
                   type="button"
-                  onclick="location.href='{% url 'remove-file' file.id %}'"
+                  onclick="#"
                 >
                   Delete
                 </button>
                 <button
                   class="btn btn-outline-primary btn-sm"
                   type="button"
-                  onclick="location.href='{% url 'downloadfile' file.file %}'"
+                  onclick="#"
                 >
-                  Download
+                  Edit
                 </button>
               </div>
             </div>
@@ -150,31 +150,31 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          {{ form.non_field_errors }}
+          {{ form_upload.non_field_errors }}
           <div class="mb-3">
-            {{ form.subject.errors }}
+            {{ form_upload.subject.errors }}
             <label for="subject" class="form-label"> Subject </label>
-            {{ form.subject }}
+            {{ form_upload.subject }}
           </div>
           <div class="mb-3">
-            {{ form.title.errors }}
+            {{ form_upload.title.errors }}
             <label for="title" class="form-label"> Title </label>
-            {{ form.title }}
+            {{ form_upload.title }}
           </div>
           <div class="mb-3">
-            {{ form.description.errors }}
+            {{ form_upload.description.errors }}
             <label for="description" class="form-label"> Description </label>
-            {{ form.description }}
+            {{ form_upload.description }}
           </div>
           <div class="mb-3">
-            {{ form.file.errors }}
+            {{ form_upload.file.errors }}
             <label for="file" class="form-label"> File </label>
-            {{ form.file }}
+            {{ form_upload.file }}
           </div>
           <div class="mb-3">
-            {{ form.teacher.errors }}
+            {{ form_upload.teacher.errors }}
             <label for="teacher" class="form-label"> Teacher </label>
-            {{ form.teacher }}
+            {{ form_upload.teacher }}
           </div>
         </div>
 
@@ -187,7 +187,8 @@
             type="submit"
             class="btn btn-primary"
             onclick="location.href='{% url 'view-subject-teacher' subject.id %}'"
-            name="FileUpload"
+            name="file_upload"
+            value="file_upload"
           >
             Upload
           </button>
@@ -198,79 +199,70 @@
 </div>
 <!-- The Modal Activity -->
 <div class="modal fade" id="modal-activity">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Create an Activity</h4>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="form-floating mt-3 mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="category"
-            placeholder="Enter category"
-            name="Subject"
-            value="{{subject.subject}}"
-            data-bs-toggle="tooltip"
-            title="Automatically set to the current subject."
-            disabled
-          />
-          <label for="category">Subject</label>
-        </div>
-        <div class="form-floating mt-3 mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="category"
-            placeholder="Enter category"
-            name="category"
-            value="{{subject.teacher.get_full_name}}"
-            data-bs-toggle="tooltip"
-            title="Automatically set to the current teacher."
-            disabled
-          />
-          <label for="category">Teacher</label>
-        </div>
-        <div class="form-floating mt-3 mb-3">
-          <select class="form-select" id="testType" name="testType">
-            <option>Question and Answer</option>
-            <option>Multiple Choice</option>
-          </select>
-          <label for="sel1" class="form-label">Select type</label>
+  <form method="post">
+    {% csrf_token %}
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Create activity</h4>
         </div>
 
-        <div class="form-floating mt-3 mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="question"
-            placeholder="Enter question"
-            name="question"
-            required
-          />
-          <label for="question">Title</label>
-        </div>
-      </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          {{ form_activity.non_field_errors }}
+          <div class="mb-3">
+            {{ form_activity.subject.errors }}
+            <label for="subject" class="form-label"> Subject </label>
+            {{ form_activity.subject }}
+          </div>          
+          <div class="mb-3">
+            {{ form_activity.title.errors }}
+            <label for="title" class="form-label"> Title </label>
+            {{ form_activity.title }}
+          </div>          
+          <div class="mb-3">
+            {{ form_activity.description.errors }}
+            <label for="description" class="form-label"> Description </label>
+            {{ form_activity.description }}
+          </div>
+          <div class="mb-3">
+            {{ form_activity.teacher.errors }}
+            <label for="teacher" class="form-label"> Teacher </label>
+            {{ form_activity.teacher }}
+          </div>          
+          <div class="mb-3 form-check">
+            {{ form_activity.is_multiple_choice.errors }}
+            <label for="is_multiple_choice" class="form-check-label"> Set this as Multiple Choice type </label>
+            {{ form_activity.is_multiple_choice }}
+            <p class="text-muted">{{ form_activity.is_multiple_choice.help_text }}</p>
+          </div>
 
+          <div class="mb-3 form-check">
+            {{ form_activity.is_deployed.errors }}
+            {{ form_activity.is_deployed }}
+            <p class="text-muted">{{ form_activity.is_deployed}}</p>
+          </div>
+
+        </div>
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
           Close
         </button>
         <button
-          type="button"
+            type="submit"
           class="btn btn-primary"
-          onclick="location.href='{% url 'create-activity' %}'"
+          onclick="location.href='{% url 'view-subject-teacher' subject.id %}'"
+          name="create_activity"
+          value="create_activity"
         >
           Create
         </button>
       </div>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 {% endblock sidecontent %}
 <!-- Subject Information -->

@@ -1,4 +1,6 @@
-{% extends "learn/layout.html" %} {% load staticfiles %} {% load humanize %}
+{% extends "learn/layout.html" %}
+{% load staticfiles %}
+{% load humanize %}
 {%block content %}
   <div class="container-fluid">
     <div class="row p-0">
@@ -6,7 +8,7 @@
       {% if subjects %}
         {% for subject in subjects %}
         <div class="col-lg-4 col-md-6 col-sm-12 p-0 m-0">
-          <div class="card shadow mx-2 my-2">
+          <div class="card h-100 shadow mx-2 my-2">
             <img
               src="{{ subject.image.url }}"
               width="200"
@@ -48,6 +50,6 @@
     </div>
   </div>
 {% endblock content %} 
-{% block sidecontent %} 
+{% block sidecontent %}
   {% include "learn/common/profile-section.html" %} 
 {% endblock sidecontent %}

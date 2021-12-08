@@ -1,4 +1,6 @@
-{% extends "learn/layout.html" %} {% load staticfiles %} 
+{% extends "learn/layout.html" %}
+{% load staticfiles %}
+{% load humanize %}
 {%block content %}
   <div class="container-fluid">
     <div class="row p-0">
@@ -6,7 +8,7 @@
       {% if subjects %}
         {% for subject in subjects %}
         <div class="col-lg-4 col-md-6 col-sm-12 p-0 m-0">
-          <div class="card shadow mx-2 my-2">
+          <div class="card h-100 shadow mx-2 my-2">
             <img
               src="{{ subject.subject.image.url }}"
               width="200"
@@ -24,6 +26,9 @@
               <small>{{ subject.subject.teacher.get_full_name }}</small>
               <p class="card-text text-muted text-truncate">
                 <small>{{ subject.subject.description }}</small>
+              </p>
+              <p class="card-text text-muted">
+                <small>Started {{subject.timestamp | naturaltime }}</small>
               </p>
             </div>
             <div class="card-footer d-grid gap-2">

@@ -2,9 +2,9 @@ from re import sub
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Subject,Student,File
+from .models import Subject,Student,File,Activity
 from django.contrib.auth.models import User
-from .forms import FileForm
+from .forms import FileForm ,ActivityForm
 import os
 from django.conf import settings
 from django.http import HttpResponse, Http404
@@ -22,18 +22,34 @@ def home(request):
 def view_subject(request,id):
     subject = Subject.objects.get(id=id)
     if request.user.is_staff:
-        if request.method == 'POST':
-            form = FileForm(request.POST, request.FILES)
-            if form.is_valid():
-                title= form.cleaned_data.get("title")
-                form.save()
+        if request.method == 'POST' and request.POST.get("file_upload"):
+            form_upload = FileForm(request.POST, request.FILES)
+            if form_upload.is_valid():
+                title= form_upload.cleaned_data.get("title")
+                form_upload.save()
                 messages.success(request,f"File {title} uploaded successfully...")
                 return redirect(request.META.get('HTTP_REFERER'))
+        if request.method == 'POST' and request.POST.get("create_activity"):
+            form_activity = ActivityForm(request.POST)
+            if form_activity.is_valid():
+                title= form_activity.cleaned_data.get("title")
+                form_activity.save()
+                messages.success(request,f"Activity {title} created  successfully...")
+                return redirect(request.META.get('HTTP_REFERER'))
+            else:
+                print(form_activity)
+                print("you didnt clicked the create activity")
 
-        else:
-            form = FileForm(initial={'subject':subject.subject,'teacher':request.user.get_full_name()})
-            files = File.objects.filter(subject=subject.subject)
-        return render(request, 'learn/teacher/view.html', {'subject':subject,'files':files,'form':form})
+        form_upload = FileForm(initial={'subject':subject.subject,'teacher':request.user.get_full_name()})
+        form_upload.fields['subject'].widget.attrs['readonly'] = True
+        form_upload.fields['teacher'].widget.attrs['readonly'] = True
+        form_activity = ActivityForm(initial={'subject':subject.subject,'teacher':request.user.get_full_name(),'is_deployed':'true'})
+        form_activity.fields['subject'].widget.attrs['readonly'] = True
+        form_activity.fields['teacher'].widget.attrs['readonly'] = True
+        form_activity.fields['is_deployed'].widget.attrs['hidden'] = True
+        files = File.objects.filter(subject=subject.subject)
+        activities = Activity.objects.filter(subject=subject.subject)
+        return render(request, 'learn/teacher/view.html', {'subject':subject, 'activities': activities,'files':files,'form_upload':form_upload,'form_activity':form_activity})
     files = File.objects.filter(subject=subject.subject)
     return render(request, 'learn/student/view.html', {'subject':subject,'files':files})
 

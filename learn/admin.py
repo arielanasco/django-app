@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Profile, Subject, Student, File
-from .forms import SubjectForm,StudentForm ,FileForm
+from .models import Profile, Subject, Student, File ,Activity
+from .forms import SubjectForm,StudentForm ,FileForm, ActivityForm
 from django.contrib.auth.models import Group
 
 class SubjectData(admin.ModelAdmin):
@@ -21,6 +21,10 @@ class StudentData(admin.ModelAdmin):
         except:
             return obj.student.username
 
+class ActivityData(admin.ModelAdmin):
+    form = ActivityForm
+    list_display = ('subject','title','teacher', 'description', 'is_multiple_choice','is_deployed')
+    
 class FileData(admin.ModelAdmin):
     form = FileForm
     list_display = ('title', 'file', 'subject')
@@ -37,3 +41,4 @@ admin.site.unregister(Group)
 admin.site.register(Subject,SubjectData)
 admin.site.register(Student,StudentData)
 admin.site.register(File,FileData)
+admin.site.register(Activity,ActivityData)
