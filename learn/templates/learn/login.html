@@ -2,66 +2,120 @@
 staticfiles %}
 <!-- Content block -->
 {% block content %}
-<div class="card mb-2">
-  <div class="card-body">
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
-      <symbol
-        id="exclamation-triangle-fill"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-        />
-      </symbol>
-    </svg>
-    <div class="alert alert-primary" role="alert">
-      <h4 class="alert-heading">
-        <svg
-          class="bi flex-shrink-0 me-2"
-          width="25"
-          height="25"
-          role="img"
-          aria-label="Info:"
-        >
-          <use xlink:href="#exclamation-triangle-fill" />
-        </svg>
-        UNAUTHORIZED ACCESS TO THIS WEBSITE IS PROHIBITED
-      </h4>
+<section class="pt-4 pt-md-11 mb-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-5 col-lg-6 order-md-2">
 
-      <p>
-        You must have explicit, authorized permission to access or configure
-        this website. Unauthorized attempts and actions to access or use this
-        system may result in civil and/or criminal penalties. All activities
-        performed on this website are logged and monitored.
-      </p>
-      <hr />
-      <p class="mb-0">
-        For technical issues/inquiry email the admin at ariel@linkmind.co.jp
-      </p>
+        <!-- Image -->
+        <img src="/media/welcome.jpg" class="img-fluid mw-md-150 mw-lg-130 mb-6 mb-md-0 shadow" alt="Welcome Image">
+
+      </div>
+      <div class="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate" data-aos="fade-up">
+
+        <!-- Heading -->
+        <h1 class="display-3 text-center text-md-start">
+          Welcome to <span class="text-primary">IMath</span>! <br>
+          Vestibulum ac diam sit amet quam.
+        </h1>
+
+        <!-- Text -->
+        <p class="lead text-center text-md-start text-muted mb-6 mb-lg-8">
+          Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit.
+        </p>
+
+        <!-- Buttons -->
+        <div class="text-center text-md-start">
+          <a href="mailto:someone@mail.com" class="btn btn-primary shadow lift me-1">
+            Inquire Now
+          </a>
+        </div>
+
+      </div>
     </div>
-  </div>
-</div>
+  </div> 
+</section>
+<section class="py-8 py-md-11">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-4">
+
+            <!-- Icon -->
+            <div class="icon text-primary mb-3">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"></path><path d="M7 3h10a4 4 0 110 8H7a4 4 0 110-8zm0 6a2 2 0 100-4 2 2 0 000 4z" fill="#335EEA"></path><path d="M7 13h10a4 4 0 110 8H7a4 4 0 110-8zm10 6a2 2 0 100-4 2 2 0 000 4z" fill="#335EEA" opacity=".3"></path></g></svg>            </div>
+
+            <!-- Heading -->
+            <h3>
+              Built for academic community
+            </h3>
+
+            <!-- Text -->
+            <p class="text-muted mb-6 mb-md-0">
+              Pellentesque in ipsum id orci porta dapibus.
+            </p>
+
+          </div>
+          <div class="col-12 col-md-4">
+
+            <!-- Icon -->
+            <div class="icon text-primary mb-3">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"></path><path d="M5.5 4h4A1.5 1.5 0 0111 5.5v1A1.5 1.5 0 019.5 8h-4A1.5 1.5 0 014 6.5v-1A1.5 1.5 0 015.5 4zm9 12h4a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-1.5 1.5h-4a1.5 1.5 0 01-1.5-1.5v-1a1.5 1.5 0 011.5-1.5z" fill="#335EEA"></path><path d="M5.5 10h4a1.5 1.5 0 011.5 1.5v7A1.5 1.5 0 019.5 20h-4A1.5 1.5 0 014 18.5v-7A1.5 1.5 0 015.5 10zm9-6h4A1.5 1.5 0 0120 5.5v7a1.5 1.5 0 01-1.5 1.5h-4a1.5 1.5 0 01-1.5-1.5v-7A1.5 1.5 0 0114.5 4z" fill="#335EEA" opacity=".3"></path></g></svg></div>
+
+            <!-- Heading -->
+            <h3>
+              Designed to be modern
+            </h3>
+
+            <!-- Text -->
+            <p class="text-muted mb-6 mb-md-0">
+              Pellentesque in ipsum id orci porta dapibus.
+            </p>
+
+          </div>
+          <div class="col-12 col-md-4">
+
+            <!-- Icon -->
+            <div class="icon text-primary mb-3">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"></path><path d="M17.272 8.685a1 1 0 111.456-1.37l4 4.25a1 1 0 010 1.37l-4 4.25a1 1 0 01-1.456-1.37l3.355-3.565-3.355-3.565zm-10.544 0L3.373 12.25l3.355 3.565a1 1 0 01-1.456 1.37l-4-4.25a1 1 0 010-1.37l4-4.25a1 1 0 011.456 1.37z" fill="#335EEA"></path><rect fill="#335EEA" opacity=".3" transform="rotate(15 12 12)" x="11" y="4" width="2" height="16" rx="1"></rect></g></svg>            </div>
+
+            <!-- Heading -->
+            <h3>
+              Documentation for everything
+            </h3>
+
+            <!-- Text -->
+            <p class="text-muted mb-0">
+              Pellentesque in ipsum id orci porta dapibus.
+            </p>
+
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+    </section>
 {% endblock content %}
 <!-- Side Content -->
 {% block sidecontent %}
-<div class="card">
-  <div class="card-body">
-    <form method="POST">
-      {% csrf_token %}
-      <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Log In</legend>
-        {{ form|crispy }}
-      </fieldset>
-      <div class="form-group mt-2">
-        <button class="btn btn-outline-info mb-2" type="submit">Login</button>
+<div class="container-fluid">
+  <div class="card shadow mx-2 my-2">
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <h1 class="display-6 text-center text-md-start mb-4"">
+            Log In  
+          </h1>
+          {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info text-end my-2" type="submit">Login</button>
+        </div>
+      </form>
+      <div class="border-top pt-3">
+        <small class="text-muted">
+          Forgot password?
+          <a class="ml-2" href="#">here</a>
+        </small>
       </div>
-    </form>
-    <div class="border-top pt-3">
-      <small class="text-muted">
-        Forgot password?
-        <a class="ml-2" href="#">here</a>
-      </small>
     </div>
   </div>
 </div>
