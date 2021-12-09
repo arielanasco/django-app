@@ -1,0 +1,197 @@
+
+asctime	levelname	name	message
+00:00:02	INFO	STF	START get_STF_mchan_catgy.py
+00:00:02	INFO	RKT	START get_RKT_catgy_tree.py
+00:00:02	INFO	AUP	START get_AUP_urls.py
+00:00:02	INFO	ANA	START get_ANA_urls_catgy.py
+00:00:02	INFO	FPL	START get_FPL_urls_catgy.py
+00:00:02	INFO	FHP	START get_FHP_urls.py
+00:00:02	INFO	RKT	Found 39 big categories.
+00:06:55	INFO	RKT	Saved category tree at data/RKT/RKT_catgy_tree.json
+00:06:56	INFO	RKT	Saved 13,893 end-categories end catgys at data/RKT/RKT_end_catgy_dict.json
+00:06:56	INFO	RKT	Created summary: logs_summary/202111090006_get_RKT_catgy_tree.json
+00:06:56	INFO	RKT	END get_RKT_catgy_tree.py
+00:06:56	INFO	RKT	START get_RKT_mchan_catgy.py
+00:07:50	INFO	FPL	Saved 34,173 urls in data/scrape/data_list_FPL.csv
+00:07:50	INFO	FPL	Created summary: logs_summary/202111090007_get_FPL_urls_catgy.json
+00:07:50	INFO	FPL	END get_FPL_urls_catgy.py
+00:07:51	INFO	FPL	START get_FPL_mchan.py
+00:07:51	INFO	FPL	Scraping urls from csv file.
+00:09:39	INFO	RKT	Got 261 categories as initial parameters.
+00:50:39	INFO	STF	Processed: 137,604
+00:50:39	INFO	STF	Inserted/updated: 137,604
+00:50:39	INFO	STF	No product errors.
+00:50:39	WARNING	STF	Product warnings (validation): 1
+00:50:39	INFO	STF	Created summary: logs_summary/202111090050_get_STF_mchan_catgy.json
+00:50:39	INFO	STF	END get_STF_mchan_catgy.py
+01:00:40	ERROR	RKT	Couldn't process https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706. Params: {'format': 'json', 'keyword': '【ふるさと納税】', 'applicationId': '1048204024942812171', 'genreId': 100554, 'maxPrice': 100000000, 'minPrice': 0, 'sort': '-updateTimestamp', 'formatVersion': 2, 'elements': 'catchcopy,creditCardFlag,giftFlag,reviewCount,itemCode,itemUrl,mediumImageUrls,startTime,endTime,shopName,itemPrice,itemName,itemCaption,genreId,reviewAverage,availability', 'page': 50, 'availability': 1}
+01:00:40	ERROR	RKT	Coudn't get data for url 
+ https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?format=json&keyword=%E3%80%90%E3%81%B5%E3%82%8B%E3%81%95%E3%81%A8%E7%B4%8D%E7%A8%8E%E3%80%91&applicationId=1048204024942812171&genreId=100554&maxPrice=100000000&minPrice=0&sort=-updateTimestamp&formatVersion=2&elements=catchcopy%2CcreditCardFlag%2CgiftFlag%2CreviewCount%2CitemCode%2CitemUrl%2CmediumImageUrls%2CstartTime%2CendTime%2CshopName%2CitemPrice%2CitemName%2CitemCaption%2CgenreId%2CreviewAverage%2Cavailability&page=50&availability=1. 
+Number of attempts: 30.
+01:07:32	INFO	AUP	Saved 90,910 urls in data/scrape/data_list_AUP.csv
+01:07:32	INFO	AUP	Created summary: logs_summary/202111090107_get_AUP_urls.json
+01:07:32	INFO	AUP	END get_AUP_urls.py
+01:07:33	INFO	AUP	START get_AUP_mchan_catgy.py
+01:07:33	INFO	AUP	Scraping urls from csv file.
+01:16:59	INFO	ANA	Saved 131,155 urls in data/scrape/data_list_ANA.csv
+01:16:59	INFO	ANA	Created summary: logs_summary/202111090116_get_ANA_urls_catgy.json
+01:16:59	INFO	ANA	END get_ANA_urls_catgy.py
+01:17:00	INFO	ANA	START get_ANA_mchan.py
+01:17:00	INFO	ANA	Scraping urls from csv file.
+01:24:37	INFO	FHP	Saved 28,615 urls in data/scrape/data_list_FHP.csv
+01:24:37	INFO	FHP	Created summary: logs_summary/202111090124_get_FHP_urls.json
+01:24:37	INFO	FHP	END get_FHP_urls.py
+01:24:38	INFO	FHP	START get_FHP_mchan_catgy.py
+01:24:38	INFO	FHP	Scraping urls from csv file.
+01:29:25	ERROR	RKT	mchan_nm does not a value.
+02:34:37	INFO	RKT	Processed: 293,467
+02:34:37	INFO	RKT	Inserted/updated: 293,436
+02:34:37	WARNING	RKT	Product errors (validation/insert/status): 31
+02:34:37	WARNING	RKT	Product warnings (validation): 48,585
+02:34:37	INFO	RKT	Created summary: logs_summary/202111090234_get_RKT_mchan_catgy.json
+02:34:37	INFO	RKT	END get_RKT_mchan_catgy.py
+02:53:56	INFO	AUP	Scraping non-updated urls from database.
+02:54:56	INFO	AUP	Processed: 91,049
+02:54:56	INFO	AUP	Inserted/updated: 90,924
+02:54:56	WARNING	AUP	Product errors (validation/insert/status): 125
+02:54:56	WARNING	AUP	Product warnings (validation): 2,327
+02:54:56	INFO	AUP	Created summary: logs_summary/202111090254_get_AUP_mchan_catgy.json
+02:54:56	INFO	AUP	END get_AUP_mchan_catgy.py
+03:00:02	INFO	FNB	START get_FNB_mchan.py
+03:00:02	INFO	FCH	START get_FCH_mchan_catgy.py
+03:00:02	ERROR	FCH	No valid files to process.
+03:00:02	ERROR	FCH	No valid files to process.
+03:00:02	INFO	FPR	START get_FPR_mchan_catgy.py
+03:00:04	INFO	FPR	Downloaded file: FPR_20211109_030002.json.gz
+03:00:04	INFO	FPR	Processing file: data/feed/FPR/unprocessed/FPR_20211109_030002.json.gz
+03:00:07	INFO	FNB	Downloaded file: FNB_20211109_030002.tsv
+03:00:07	INFO	FNB	Processing file: data/feed/FNB/unprocessed/FNB_20211109_030002.tsv
+03:03:16	INFO	FPR	Processed: 49,116
+03:03:16	INFO	FPR	Inserted/updated: 49,116
+03:03:16	INFO	FPR	No product errors.
+03:03:16	WARNING	FPR	Product warnings (validation): 2,770
+03:03:16	INFO	FPR	Created summary: logs_summary/202111090303_get_FPR_mchan_catgy.json
+03:03:16	INFO	FPR	Moving file to data/feed/FPR/success/FPR_20211109_030002.json.gz
+03:03:16	INFO	FPR	END get_FPR_mchan_catgy.py
+03:13:32	INFO	FNB	Processed: 225,383
+03:13:32	INFO	FNB	Inserted/updated: 225,382
+03:13:32	WARNING	FNB	Product errors (validation/insert/status): 1
+03:13:32	WARNING	FNB	Product warnings (validation): 38
+03:13:32	INFO	FNB	Created summary: logs_summary/202111090313_get_FNB_mchan.json
+03:13:32	INFO	FNB	Moving file to data/feed/FNB/success/FNB_20211109_030002.tsv
+03:13:32	INFO	FNB	END get_FNB_mchan.py
+05:06:18	INFO	ANA	Scraping non-updated urls from database.
+05:07:53	INFO	ANA	Processed: 131,400
+05:07:53	INFO	ANA	Inserted/updated: 131,152
+05:07:53	WARNING	ANA	Product errors (validation/insert/status): 248
+05:07:53	WARNING	ANA	Product warnings (validation): 726
+05:07:53	INFO	ANA	Created summary: logs_summary/202111090507_get_ANA_mchan.json
+05:07:53	INFO	ANA	END get_ANA_mchan.py
+07:08:04	INFO	FPL	Scraping non-updated urls from database.
+07:08:52	INFO	FPL	Processed: 33,372
+07:08:52	INFO	FPL	Inserted/updated: 33,305
+07:08:52	WARNING	FPL	Product errors (validation/insert/status): 67
+07:08:52	WARNING	FPL	Product warnings (validation): 95
+07:08:52	INFO	FPL	Created summary: logs_summary/202111090708_get_FPL_mchan.json
+07:08:52	INFO	FPL	END get_FPL_mchan.py
+09:30:02	INFO	FHP	Scraping non-updated urls from database.
+09:42:15	INFO	FHP	Processed: 24,997
+09:42:15	INFO	FHP	Inserted/updated: 24,974
+09:42:15	WARNING	FHP	Product errors (validation/insert/status): 23
+09:42:15	WARNING	FHP	Product warnings (validation): 128
+09:42:15	INFO	FHP	Created summary: logs_summary/202111090942_get_FHP_mchan_catgy.json
+09:42:15	INFO	FHP	END get_FHP_mchan_catgy.py
+09:42:15	INFO	INIT	START batch_update_m_agt_catgy.py
+09:42:15	INFO	INIT	Updating m_agt_catgy of ['RKT', 'FNB', 'FCH', 'STF', 'ANA', 'AUP', 'FHP', 'FPL', 'FPR']
+09:44:27	INFO	INIT	END batch_update_m_agt_catgy.py
+09:44:27	INFO	NAYOSE	Assigning categories for all agents in all cities where catgy_assign_flg is 1.
+09:44:27	INFO	CATGY	START assign_catgy.py
+09:44:40	ERROR	CATGY	No category found for: FHP : 工芸品・装飾品_工芸品・民芸品
+09:45:34	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_日用品
+09:54:04	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_スポーツ・アウトドア
+09:54:27	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+09:56:23	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+09:56:23	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+09:56:24	ERROR	CATGY	No category found for: FPR : クラウドファンディング
+09:56:25	ERROR	CATGY	No category found for: FPR : ふるさとプレミアムクラウドファンディング
+09:57:57	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_衣類・履き物
+09:59:23	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+10:03:43	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+10:03:49	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+10:05:55	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+10:05:55	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+10:07:04	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+10:08:21	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+10:14:33	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_家具
+10:15:16	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_その他
+10:18:09	ERROR	CATGY	No category found for: FHP : 日用品・雑貨
+10:18:09	ERROR	CATGY	No category found for: FHP : 工芸品・装飾品
+10:18:09	ERROR	CATGY	No category found for: FHP : 保存・非常食_防災セット
+10:18:11	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_スポーツ・アウトドア
+10:19:07	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+10:19:20	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_寝具
+10:19:24	ERROR	CATGY	No category found for: FPR : ふるチョ限定
+10:21:49	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+10:21:52	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_日用品
+10:21:58	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+10:22:12	ERROR	CATGY	No category found for: FHP : 工芸品・装飾品_工芸品・民芸品
+10:24:06	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_スポーツ・アウトドア
+10:24:43	ERROR	CATGY	No category found for: FPR : ふるさとプレミアムクラウドファンディング
+10:24:43	ERROR	CATGY	No category found for: FPR : クラウドファンディング
+10:28:32	ERROR	CATGY	No category found for: AUP : 仏具・神具_仏具
+10:28:43	ERROR	CATGY	No category found for: AUP : 陶磁器・漆器・ガラス_ビードロ
+10:33:33	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+10:38:56	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_家具
+10:38:56	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_その他
+10:38:56	ERROR	CATGY	No category found for: FHP : 家電製品_その他家電
+10:39:00	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_キッチン用品
+10:39:00	ERROR	CATGY	No category found for: FHP : 家電製品_キッチン家電
+10:39:00	ERROR	CATGY	No category found for: FHP : 家電製品_その他家電
+10:39:00	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_家具
+10:39:02	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,plumwine
+10:39:03	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_日用品
+10:39:07	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_寝具
+10:39:07	ERROR	CATGY	No category found for: FHP : 工芸品・装飾品_その他
+10:39:07	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_その他
+10:39:07	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_スポーツ・アウトドア
+10:39:07	ERROR	CATGY	No category found for: FHP : 日用品・雑貨
+10:40:09	ERROR	CATGY	No category found for: FHP : お酒_焼酎_泡盛
+10:41:39	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,wine_liqueur
+10:42:34	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_その他
+10:50:24	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_日用品
+10:50:24	ERROR	CATGY	No category found for: FHP : 工芸品・装飾品_工芸品・民芸品
+10:53:42	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_日用品
+10:54:15	ERROR	CATGY	No category found for: FHP : 工芸品・装飾品_工芸品・民芸品
+10:55:06	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_その他
+10:57:04	ERROR	CATGY	No category found for: RKT : インナー・下着・ナイトウェア_メンズ_ナイトウェア・ルームウェア_バスローブ
+11:01:45	ERROR	CATGY	No category found for: FPR : 庄内柿
+11:03:26	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_家具
+11:04:21	ERROR	CATGY	No category found for: FPR : 舟形町
+11:07:41	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_衣類・履き物
+11:07:49	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_家具
+11:21:58	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_日用品
+11:28:58	ERROR	CATGY	No category found for: FHP : 工芸品・装飾品_アクセサリー
+11:30:52	ERROR	CATGY	No category found for: FHP : 日用品・雑貨_その他
+11:31:08	ERROR	CATGY	No category found for: FHP : お酒_焼酎_泡盛
+11:32:37	ERROR	CATGY	No category found for: FPR : 静岡県小山町
+11:33:12	ERROR	CATGY	No category found for: FHP : 家電製品_その他家電
+11:33:46	ERROR	CATGY	No category found for: STF : fooddrink,alcoholicdrinks,champagne
+11:34:01	ERROR	CATGY	No category found for: RKT : パソコン・周辺機器_PCアクセサリー_USBグッズ_加湿器
+11:34:09	ERROR	CATGY	No category found for: RKT : 家電_キッチン家電_食器洗い乾燥機_据置型食器洗い乾燥機
+11:34:11	INFO	CATGY	Created summary: logs_summary/202111091134_assign_catgy.json
+11:34:11	INFO	CATGY	END assign_catgy.py
+11:34:11	INFO	NAYOSE	Doing Nayose for all cities.
+11:34:11	INFO	NAYOSE	START nayose.py
+11:34:11	INFO	NAYOSE	App started in /var/furusatohikaku/prj_his_furusato_scrape/src
+11:34:11	INFO	NAYOSE	NAYOSE START
+11:38:41	INFO	NAYOSE	012238	New t_mchan entries: 36
+11:40:07	INFO	NAYOSE	152269	New t_mchan entries: 7
+11:40:28	INFO	NAYOSE	221309	New t_mchan entries: 1
+11:40:48	INFO	NAYOSE	212059	New t_mchan entries: 23
+11:41:38	INFO	NAYOSE	412015	New t_mchan entries: 1
+11:41:39	INFO	NAYOSE	272132	New t_mchan entries: 18
+11:42:06	INFO	NAYOSE	402125	New t_mchan entries: 2
+11:44:57	INFO	NAYOSE	414018	New t_mchan entries: 1
+11:45:04	INFO	NAYOSE	392022	New t_mchan entries: 9
+11:46:08	INFO	NAYOSE	423238	New t_mchan entries: 7
+11:46:37	INFO	NAYOSE	303615	New t_mchan entries: 8

@@ -59,13 +59,13 @@ class Student(models.Model):
         verbose_name_plural = "Students"
 
     def __str__(self):
-        if self.student.first_name == "":
-            return f"{self.student.username}"
-        return f"{self.student.first_name} {self.student.last_name}"
+        if self.student.first_name not in  [""," ",None]:
+            return f"{self.student.get_full_name()}"
+        return f"{self.student.username}"
 
 class Activity(models.Model):
-    subject = models.CharField(max_length=100,null=False)
-    teacher = models.CharField(max_length=100,null=False)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,max_length=100)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
     title = models.CharField(max_length=100,null=False,unique=True)
     description =  models.CharField(max_length=100,null=False)
     is_multiple_choice = models.BooleanField(default=True)
@@ -79,8 +79,8 @@ class Activity(models.Model):
         return f"{self.title}"
 
 class File(models.Model):
-    subject = models.CharField(max_length=100,null=False)
-    teacher = models.CharField(max_length=100,null=False)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,max_length=100)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
     title = models.CharField(max_length=100,null=False)
     description =  models.CharField(max_length=100,null=False)
     file = models.FileField(upload_to="files",null=False)

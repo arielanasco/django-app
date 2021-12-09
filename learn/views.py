@@ -36,22 +36,27 @@ def view_subject(request,id):
                 form_activity.save()
                 messages.success(request,f"Activity {title} created  successfully...")
                 return redirect(request.META.get('HTTP_REFERER'))
-            else:
-                print(form_activity)
-                print("you didnt clicked the create activity")
 
-        form_upload = FileForm(initial={'subject':subject.subject,'teacher':request.user.get_full_name()})
-        form_upload.fields['subject'].widget.attrs['readonly'] = True
-        form_upload.fields['teacher'].widget.attrs['readonly'] = True
-        form_activity = ActivityForm(initial={'subject':subject.subject,'teacher':request.user.get_full_name(),'is_deployed':'true'})
-        form_activity.fields['subject'].widget.attrs['readonly'] = True
-        form_activity.fields['teacher'].widget.attrs['readonly'] = True
+        form_upload = FileForm(initial={'subject':subject.id,'teacher':request.user.id})
+        form_upload.fields['subject'].widget.attrs['hidden'] = True
+        form_upload.fields['teacher'].widget.attrs['hidden'] = True
+        form_upload.fields['title'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'title'})
+        form_upload.fields['description'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'description'})
+        form_upload.fields['file'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'file'})
+
+        form_activity = ActivityForm(initial={'subject':subject.id,'teacher':request.user.id,'is_deployed':'false'})
+        form_activity.fields['subject'].widget.attrs['hidden'] = True
+        form_activity.fields['teacher'].widget.attrs['hidden'] = True
         form_activity.fields['is_deployed'].widget.attrs['hidden'] = True
-        files = File.objects.filter(subject=subject.subject)
-        activities = Activity.objects.filter(subject=subject.subject)
+        form_activity.fields['title'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'title'})
+        form_activity.fields['description'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'description'})
+        form_activity.fields['is_deployed'].widget.attrs.update({'class': 'form-check-input','type':'checkbox', 'id':'file'})
+        files = File.objects.filter(subject=subject.id)
+        activities = Activity.objects.filter(subject=subject.id)
         return render(request, 'learn/teacher/view.html', {'subject':subject, 'activities': activities,'files':files,'form_upload':form_upload,'form_activity':form_activity})
-    files = File.objects.filter(subject=subject.subject)
-    return render(request, 'learn/student/view.html', {'subject':subject,'files':files})
+    activities = Activity.objects.filter(subject=subject.id)
+    files = File.objects.filter(subject=subject.id)
+    return render(request, 'learn/student/view.html', {'subject':subject,'files':files, 'activities':activities})
 
 def delete_file(request,id):
     if request.user.is_staff:

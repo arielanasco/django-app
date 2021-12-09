@@ -10,7 +10,7 @@
     {% if files %}
       {% for file in files %}
         <div class="col-lg-4 col-md-6 col-sm-12 p-0 m-0">
-          <div class="card h-100 shadow mx-2 mb-2">
+          <div class="card shadow mx-2 my-2">
             <div
               class="card-body"
               data-toggle="tooltip"
@@ -58,7 +58,7 @@
     {% if activities %}
       {% for activity in activities %}
         <div class="col-lg-4 col-md-6 col-sm-12 p-0 m-0">
-          <div class="card h-100 shadow mx-2 my-2">
+          <div class="card shadow mx-2 my-2">
             <div
               class="card-body"
               data-toggle="tooltip"
@@ -66,6 +66,11 @@
               title="{{file.title}}"
             >
               <h5 class="card-title text-truncate">{{activity.title}}</h5>
+              {% if activity.is_deployed %}
+                <span class="badge rounded-pill bg-success">Deployed</span>
+              {% else %}
+                <span class="badge rounded-pill bg-primary">On Hold</span>
+              {%  endif %}            
               <p class="card-text text-muted text-truncate">
                 <small>{{activity.description}}</small>
               </p>
@@ -151,10 +156,9 @@
         <!-- Modal body -->
         <div class="modal-body">
           {{ form_upload.non_field_errors }}
-          <div class="mb-3">
+          <div>
             {{ form_upload.subject.errors }}
-            <label for="subject" class="form-label"> Subject </label>
-            {{ form_upload.subject }}
+            {{ form_upload.subject}}
           </div>
           <div class="mb-3">
             {{ form_upload.title.errors }}
@@ -171,9 +175,8 @@
             <label for="file" class="form-label"> File </label>
             {{ form_upload.file }}
           </div>
-          <div class="mb-3">
+          <div>
             {{ form_upload.teacher.errors }}
-            <label for="teacher" class="form-label"> Teacher </label>
             {{ form_upload.teacher }}
           </div>
         </div>
@@ -211,9 +214,8 @@
         <!-- Modal body -->
         <div class="modal-body">
           {{ form_activity.non_field_errors }}
-          <div class="mb-3">
+          <div>
             {{ form_activity.subject.errors }}
-            <label for="subject" class="form-label"> Subject </label>
             {{ form_activity.subject }}
           </div>          
           <div class="mb-3">
@@ -225,17 +227,16 @@
             {{ form_activity.description.errors }}
             <label for="description" class="form-label"> Description </label>
             {{ form_activity.description }}
-          </div>
-          <div class="mb-3">
-            {{ form_activity.teacher.errors }}
-            <label for="teacher" class="form-label"> Teacher </label>
-            {{ form_activity.teacher }}
           </div>          
-          <div class="mb-3 form-check">
+          <div class="mb-3 form-check m-0 p-0">
             {{ form_activity.is_multiple_choice.errors }}
-            <label for="is_multiple_choice" class="form-check-label"> Set this as Multiple Choice type </label>
             {{ form_activity.is_multiple_choice }}
+            <label for="is_multiple_choice" class="form-check-label"> Set this as Multiple Choice type </label>
             <p class="text-muted">{{ form_activity.is_multiple_choice.help_text }}</p>
+          </div>
+          <div>
+            {{ form_activity.teacher.errors }}
+            {{ form_activity.teacher }}
           </div>
 
           <div class="mb-3 form-check">
