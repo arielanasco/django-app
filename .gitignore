@@ -1,5 +1,3 @@
 db.sqlite3
-learn/migrations/*
-learn/media/file/*
-learn/media/subject_pics/*
-learn/media/profile_pics/*
+migrations/
+media/
