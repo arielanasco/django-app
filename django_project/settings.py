@@ -47,9 +47,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
-    'learn.apps.LearnConfig',
     'crispy_forms',
+    'ckeditor',
+    'ckeditor_uploader',
+    'learn.apps.LearnConfig',
+
+
 ]
 
 MIDDLEWARE = [
@@ -142,3 +145,87 @@ LOGIN_URL = 'login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+CKEDITOR_UPLOAD_PATH = "uploads"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_THUMBNAIL_SIZE = (300, 300)
+CKEDITOR_IMAGE_QUALITY = 40
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_FORCE_JPEG_COMPRESSION = True
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_RESTRICT_BY_USER =  True
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        # Toolbar configuration
+        # name - Toolbar name
+        # items - The buttons enabled in the toolbar
+        # 'allowedContent': True,
+        # 'removePlugins': 'stylesheetparser',
+        'toolbar_DefaultToolbarConfig': [
+            {
+                'name': 'basicstyles',
+                'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript',
+                          'Superscript', ],
+            },
+            {
+                'name': 'clipboard',
+                'items': ['Undo', 'Redo', ],
+            },
+            {
+                'name': 'paragraph',
+                'items': ['NumberedList', 'BulletedList', 'Outdent', 'Indent',
+                          'JustifyLeft', 'JustifyCenter',
+                          'JustifyRight', 'JustifyBlock', ],
+            },
+
+            {
+                'name': 'extra',
+                'items': ['Image', 'Table' ],
+            },
+
+        ],
+
+        # This hides the default title provided by CKEditor
+        'title': False,
+
+        # Use this toolbar
+        'toolbar': 'DefaultToolbarConfig',
+
+        # Which tags to allow in format tab
+        'format_tags': 'p;h1;h2',
+
+        # Remove these dialog tabs (semicolon separated dialog:tab)
+        'removeDialogTabs': ';'.join([
+            'image:advanced',
+            'image:Link',
+            'link:upload',
+            'table:advanced',
+            'tableProperties:advanced',
+        ]),
+        'linkShowTargetTab': False,
+        'linkShowAdvancedTab': False,
+
+        # CKEditor height and width settings
+        'height': '100px',
+        'width': '100%',
+        'forcePasteAsPlainText ': True,
+
+
+        # Tab = 4 spaces inside the editor
+        'tabSpaces': 4,
+
+        # Extra plugins to be used in the editor
+        'extraPlugins': ','.join([
+            # 'devtools',  # Shows a tooltip in dialog boxes for developers
+            'codesnippet',  # Used to add code snippets
+            'image2',  # Loads new and better image dialog
+            'tableresize',  # Used to allow resizing of columns in tables
+        ]),
+    }
+}

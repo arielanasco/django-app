@@ -26,7 +26,8 @@
       </p>
       <p class="card-text">
         <small class="text-muted"
-          >Active {{user.last_login | naturaltime }}</small
+          >Latest logged in {{user.last_login | timesince }} ago
+          </small
         >
       </p>
     </div>

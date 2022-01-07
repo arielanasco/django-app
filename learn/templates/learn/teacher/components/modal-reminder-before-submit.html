@@ -1,0 +1,37 @@
+<div class="modal fade" id="modal-add-question">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Submit answer? 
+                <small class="text-muted">Please read the following.</small>
+            </h4>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <ul class="list-unstyled">
+            <li>Strictly, <mark>cheating</mark> is not allowed!</li>
+            <li>Check all items if answered correctly. The following will not be counted as your answer:
+                <ul>
+                <li>Item that were left no answer</li>
+                <li>Multiple answers on an item</li>
+                </ul>
+            </li>
+            <li>Click the button  <kbd>Yes, I am sure with my answers</kbd> if you are certain on your answers.</li>
+            </ul>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+            class="btn btn-danger"
+            type="submit"
+            onclick="location.href='{% url 'answer-activity'  activity.id %}'"
+            >
+            Yes, I am sure with my answers
+        </button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>

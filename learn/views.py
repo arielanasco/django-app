@@ -2,12 +2,52 @@ from re import sub
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Subject,Student,File,Activity
+from .models import Subject,Student,File,Activity ,MultipleQuestion, QuestionandAnswer
 from django.contrib.auth.models import User
-from .forms import FileForm ,ActivityForm
+from .forms import UserUpdateForm, ProfileUpdateForm, FileForm, ActivityForm, MultipleQuestionForm, QuestionandAnswerForm, QuestionandAnswerSheetForm
 import os
 from django.conf import settings
 from django.http import HttpResponse, Http404
+from django.core.exceptions import ObjectDoesNotExist
+from django.forms import formset_factory
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        print(u_form.errors)
+        print(p_form.errors)
+        u_form.fields['username'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'username' ,'aria-describedby':'inputGroup-sizing-sm-username'})
+        u_form.fields['email'].widget.attrs.update({'class': 'form-control form-control-sm','type':'text', 'id':'email' ,'aria-describedby':'inputGroup-sizing-sm-email'})
+        u_form.fields['first_name'].widget.attrs.update({'class': 'form-control form-control-sm','type':'text', 'id':'first_name' ,'aria-describedby':'inputGroup-sizing-sm-fname'})
+        u_form.fields['last_name'].widget.attrs.update({'class': 'form-control form-control-sm','type':'text', 'id':'last_name' ,'aria-describedby':'inputGroup-sizing-sm-lname'})
+        p_form.fields['image'].widget.attrs.update({'class': 'form-control form-control-sm','type':'file', 'id':'image'})
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request,f"Profile updated successfully...")
+            return redirect('profile')
+        else:
+            for error_u_field in u_form.errors:
+                messages.error(request,f"There is an error in the {error_u_field} field")
+            for error_p_field in p_form.errors:
+                messages.error(request,f"There is an error in the {error_p_field} field")
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+        u_form.fields['username'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'username' ,'aria-describedby':'inputGroup-sizing-sm-username'})
+        u_form.fields['email'].widget.attrs.update({'class': 'form-control form-control-sm','type':'text', 'id':'email' ,'aria-describedby':'inputGroup-sizing-sm-email'})
+        u_form.fields['first_name'].widget.attrs.update({'class': 'form-control form-control-sm','type':'text', 'id':'first_name' ,'aria-describedby':'inputGroup-sizing-sm-fname'})
+        u_form.fields['last_name'].widget.attrs.update({'class': 'form-control form-control-sm','type':'text', 'id':'last_name' ,'aria-describedby':'inputGroup-sizing-sm-lname'})
+        p_form.fields['image'].widget.attrs.update({'class': 'form-control form-control-sm','type':'file', 'id':'image'})
+    context ={
+        'u_form':u_form,
+        'p_form':p_form
+    }
+    return render(request, 'learn/common/profile.html', context)
 
 @login_required
 def home(request):
@@ -54,7 +94,7 @@ def view_subject(request,id):
         files = File.objects.filter(subject=subject.id)
         activities = Activity.objects.filter(subject=subject.id)
         return render(request, 'learn/teacher/view.html', {'subject':subject, 'activities': activities,'files':files,'form_upload':form_upload,'form_activity':form_activity})
-    activities = Activity.objects.filter(subject=subject.id)
+    activities = Activity.objects.filter(subject=subject.id, is_deployed=True)
     files = File.objects.filter(subject=subject.id)
     return render(request, 'learn/student/view.html', {'subject':subject,'files':files, 'activities':activities})
 
@@ -67,10 +107,14 @@ def delete_file(request,id):
     messages.error(request,f"You are not allowed to do it...")
     return redirect(request.META.get('HTTP_REFERER'))
 
-
-@login_required
-def profile(request):
-    return render(request, 'learn/common/profile.html')
+def delete_activity(request,id):
+    if request.user.is_staff:
+        activity = Activity.objects.get(id=id)
+        activity.delete()
+        messages.success(request,"Activity deleted successfully...")
+        return redirect('learn-home')    
+    messages.error(request,f"You are not allowed to do it...")
+    return redirect('learn-home')
 
 @login_required
 def download_file(request,path):
@@ -93,9 +137,112 @@ def upload_file(request):
     return redirect('learn-home')
 
 @login_required
-def create_activity(request):
-    if request.user.is_staff:
-        # messages.info(request,'Created activity successfully... Click here to start inserting items <a href="#">here</a> >')
-        return render(request, 'learn/teacher/create_activity.html')
-    messages.error(request,"You are not allowed to access it.")
-    return redirect('learn-home')
+def create_activity(request,id):
+    try:
+        activity = Activity.objects.get(id=id)
+        if request.user.is_staff:
+            if activity.is_multiple_choice:
+                if request.method == 'POST':
+                    form_question = MultipleQuestionForm(request.POST)
+                    if form_question.is_valid() and request.POST.get('option'):
+                        messages.success(request,"Question added successfully!")
+                        form_question = form_question.save()
+                        form_question.ans = request.POST.get('option')
+                        form_question.save()
+                    else:
+                        messages.error(request,"Error! Unable to save it.")
+                    return redirect(request.META.get('HTTP_REFERER'))
+                questions = MultipleQuestion.objects.filter(activity=activity.id)
+                form = MultipleQuestionForm(initial={'activity':activity.id,'ans':"A",'ans_exp':"None"})
+                form.fields['activity'].widget.attrs['hidden'] = True
+                form.fields['ans'].widget.attrs['hidden'] = True
+                form.fields['question'].widget.attrs.update({'type':'text','class':'form-control','id':'question'})
+                form.fields['choice_a'].widget.attrs.update({'type':'text','class':'form-control','id':'choice_a'})
+                form.fields['choice_b'].widget.attrs.update({'type':'text','class':'form-control','id':'choice_b'})
+                form.fields['choice_c'].widget.attrs.update({'type':'text','class':'form-control','id':'choice_c'})
+                form.fields['choice_d'].widget.attrs.update({'type':'text','class':'form-control','id':'choice_d'})
+                form.fields['ans_exp'].widget.attrs.update({'type':'text','class':'form-control','id':'ans_exp'})
+            else:
+                if request.method == 'POST':
+                    form_question = QuestionandAnswerForm(request.POST)
+                    if form_question.is_valid():
+                        messages.success(request,"Question added successfully!")
+                        form_question.save()
+                    else:
+                        messages.error(request,"Error! Unable to save this.")
+                    return redirect(request.META.get('HTTP_REFERER'))
+                questions = QuestionandAnswer.objects.filter(activity=activity.id)
+                form = QuestionandAnswerForm(initial={'activity':activity.id})
+                form.fields['activity'].widget.attrs['hidden'] = True
+                form.fields['question'].widget.attrs.update({'type':'text','class':'form-control','id':'question'})
+            return render(request, 'learn/teacher/create_activity.html' , {'questions':questions, 'activity':activity, 'form':form})
+        messages.error(request,"You are not allowed to access it.")
+        return redirect('learn-home')
+    except ObjectDoesNotExist:
+        messages.error(request,"Activity does not exist.")
+        return redirect('learn-home')
+
+@login_required
+def deploy_activity(request,id):
+    activity = Activity.objects.get(id=id)
+    if activity.is_deployed:
+        activity.is_deployed=False
+        activity.save()
+        messages.info(request,"Activity was not deployed.")
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        activity.is_deployed=True
+        activity.save()        
+        messages.success(request,"Activity is deployed.")
+        return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def delete_question(request,mode,id):
+    if mode:
+        question = MultipleQuestion.objects.get(id=id)
+        messages.success(request,f"Question #{question.id} is deleted.")
+        question.delete()
+    else:
+        question = QuestionandAnswer.objects.get(id=id)
+        messages.success(request,f"Question #{question.id} is deleted.")
+        question.delete()    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def answer_activity(request,id):
+    activity = Activity.objects.get(id=id)
+    if request.method == 'POST':
+        if activity.is_multiple_choice:
+            answers = MultipleQuestion.objects.filter(activity=12).values_list('id','ans')
+            ctr = 0
+            for key in answers:
+                user_answer  = request.POST.get(f'option{key[0]}')
+                if user_answer == key[1]:
+                    ctr += 1
+                    print(f'Correct answer for item {key[0]} is {key[1]}')
+                else:
+                    print(f'Correct answer for item {key[0]} is {key[1]}. You answer {user_answer}')
+            print(f'Total correct answer is {ctr}')
+            messages.success(request,"You're answer were submitted")
+            return redirect('profile')
+        else:
+            messages.error(request,"Your answer were submitted!")
+            return redirect('profile')
+    
+    if activity.is_multiple_choice:
+        questions = MultipleQuestion.objects.filter(activity=activity.id)
+        context = {
+            'activity': activity,
+            'questions' : questions
+        }
+        return render(request, 'learn/student/answer-activity.html' , context)
+    else:
+        questions = QuestionandAnswer.objects.filter(activity=activity.id).values_list('question')
+        QuestionandAnswerSheetFormSet = formset_factory(QuestionandAnswerSheetForm, extra=len(questions))
+        formset = QuestionandAnswerSheetFormSet()
+        context = {
+            'activity': activity,
+            'formset': formset
+        }
+        return render(request, 'learn/student/answer-activity.html' , context)

@@ -1,7 +1,7 @@
 {% extends "learn/layout.html" %}
 {% load crispy_forms_tags %}
 {% load humanize %}
-{% load staticfiles %}
+{% load static %}
 {% block content %}
 <div class="container-fluid">
   <!-- For modules -->
@@ -17,7 +17,7 @@
               data-placement="top"
               title="{{file.title}}"
             >
-              <h5 class="card-title text-truncate">{{file.title}}</h5>
+              <h5 class="card-title text-truncate">#{{file.id}} {{file.title}}</h5>
               <p class="card-text text-muted text-truncate">
                 <small>{{file.description}}</small>
               </p>
@@ -30,7 +30,7 @@
                 <button
                   class="btn btn-outline-primary btn-sm"
                   type="button"
-                  onclick="location.href='{% url 'downloadfile' file.file %}'"
+                  onclick="location.href='{% url 'download-file' file.file %}'"
                 >
                   Download
                 </button>
@@ -54,9 +54,14 @@
               class="card-body"
               data-toggle="tooltip"
               data-placement="top"
-              title="{{file.title}}"
+              title="{{activity.title}}"
             >
-              <h5 class="card-title text-truncate">{{activity.title}}</h5>
+              <h5 class="card-title text-truncate">#{{activity.id}} {{activity.title}}</h5>
+              {% if activity.is_multiple_choice %}
+                <span class="badge rounded-pill bg-info text-dark">Multiple Choice</span>
+              {% else %}
+                <span class="badge rounded-pill bg-info text-dark">Question and Answer</span>
+              {%  endif %} 
               <p class="card-text text-muted text-truncate">
                 <small>{{activity.description}}</small>
               </p>
@@ -69,7 +74,7 @@
                 <button
                   class="btn btn-outline-primary btn-sm"
                   type="button"
-                  onclick="# %}'"
+                  onclick="location.href='{% url 'answer-activity' activity.id %}'"
                 >
                   Start
                 </button>

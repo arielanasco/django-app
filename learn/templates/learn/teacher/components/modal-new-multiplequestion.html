@@ -1,0 +1,73 @@
+<div class="modal fade" id="modal-add-question">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Add new question</h4>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            {{ form.non_field_errors }}
+            <div class="mb-3 d-flex justify-content-center">
+              {{ form.question.errors }}
+              {{ form.question}}
+            </div>
+            <hr>
+            <div class="input-group mb-3">
+              {{ form.choice_a.errors }}
+              <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio" id="optionA" name="option" value="A" aria-label="Checkbox for following text input">
+              </div>
+              {{ form.choice_a }}
+            </div>          
+            <div class="input-group mb-3">
+              {{ form.choice_b.errors }}
+              <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio" id="optionB" name="option" value="B" aria-label="Checkbox for following text input">
+              </div>
+              {{ form.choice_b }}
+            </div>          
+            <div class="input-group mb-3">
+              {{ form.choice_c.errors }}
+              <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio" id="optionC" name="option" value="C" aria-label="Checkbox for following text input">
+              </div>
+              {{ form.choice_c }}
+            </div>          
+            <div class="input-group mb-3">
+              {{ form.choice_d.errors }}
+              <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio" id="optionD" name="option" value="D" aria-label="Checkbox for following text input">
+              </div>
+              {{ form.choice_d }}
+            </div>
+            <label for="ans_exp" class="form-label">Explanation:</label>
+            <div class="input-group mb-3">
+              {{ form.ans_exp.errors }}
+              {{ form.ans_exp }}
+            </div>
+            {{ form.activity }}
+            {{ form.ans }}
+
+
+          </div> 
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              onclick="location.href='{% url 'create-activity'  activity.id %}'"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>

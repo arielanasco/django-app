@@ -1,0 +1,32 @@
+{% load humanize %}
+{% for question in questions %}
+<div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-heading{{question.id | ordinal}}">
+    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{question.id | ordinal}}" aria-expanded="true" aria-controls="panelsStayOpen-collapse{{question.id | ordinal}}">
+        Question ID#{{question.id}}
+    </button>
+    </h2>
+    <div id="panelsStayOpen-collapse{{question.id | ordinal}}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading{{question.id | ordinal}}">
+    <div class="accordion-body">
+        <div class="fluid overflow-auto mb-3">
+            {{question.question | safe}}
+        </div>
+        <div class="d-grid justify-content-md-end m-3">
+            {% if question.activity.is_deployed %}
+                <button class="btn btn-danger" 
+                        type="button"
+                        disabled
+                >Delete
+                </button>
+            {% else %}
+                <button class="btn btn-danger" 
+                        type="button"
+                        onclick="location.href='{% url 'deletequestion' 1 question.id %}'"
+                >Delete
+                </button>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+</div>
+{% endfor %}

@@ -1,0 +1,29 @@
+<div class="card  my-1 shadow">
+    <div class="card-body ">
+        <div class="overflow-auto text-center my-2">{{question.question | safe}}</div>
+        <div class="input-group mb-3">
+            <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="A" aria-label="Checkbox for following text input">
+            </div>
+            <div class="form-control"> {{question.choice_a}}</div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="B" aria-label="Checkbox for following text input">
+            </div>
+            <div class="form-control"> {{question.choice_b}}</div>
+        </div> 
+        <div class="input-group mb-3">
+            <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="C" aria-label="Checkbox for following text input">
+            </div>
+            <div class="form-control"> {{question.choice_c}}</div>
+        </div> 
+        <div class="input-group mb-3">
+            <div class="input-group-text">
+                <input class="form-check-input mt-0" type="radio" name="option{{question.id}}" value="D" aria-label="Checkbox for following text input">
+            </div>
+            <div class="form-control"> {{question.choice_d}}</div>
+        </div> 
+    </div>
+</div>

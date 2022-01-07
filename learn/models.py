@@ -4,6 +4,7 @@ from PIL import Image
 from django.utils import timezone
 import os
 from django.conf import settings
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
@@ -96,3 +97,44 @@ class File(models.Model):
         os.remove(os.path.join(settings.MEDIA_ROOT, self.file.name))
         super(File,self).delete(*args,**kwargs)
 
+
+
+class MultipleQuestion(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE,max_length=500)
+    question = RichTextUploadingField(max_length=1000, null=False)
+    choice_a = models.CharField(max_length=500,null=False)
+    choice_b = models.CharField(max_length=500,null=False)
+    choice_c = models.CharField(max_length=500,null=False)
+    choice_d = models.CharField(max_length=500,null=False)
+    ans = models.CharField(max_length=5,null=False)
+    ans_exp = models.CharField(max_length=500,null=True)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = "Multiple Questions"
+
+    def __str__(self):
+        return f"Question-{self.id}"
+
+class QuestionandAnswer(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    question = RichTextUploadingField(max_length=1000, null=False)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = "Questions and Answers"
+
+    def __str__(self):
+        return f"Question-{self.id}"
+
+
+class QuestionandAnswerSheet(models.Model):
+    question = models.ForeignKey(QuestionandAnswer, on_delete=models.CASCADE)
+    answer = RichTextUploadingField(max_length=1000, null=False)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = "Question and Answer Sheets"
+
+    def __str__(self):
+        return f"User-{self.id}"

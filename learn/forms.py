@@ -1,11 +1,29 @@
 from django import forms
-from django.contrib.auth.models import User
-from .models import Subject, Student, File , Activity
+from .models import  Profile, Subject, Student, File , Activity , MultipleQuestion, QuestionandAnswer ,QuestionandAnswerSheet
 from django.contrib.admin import widgets
+from ckeditor_uploader.widgets import CKEditorUploadingWidget 
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
 
 TEACHERS = User.objects.filter(is_staff=True,is_active=True)
 STUDENTS =  User.objects.filter(is_staff=False,is_active=True)
 SUBJECTS = Subject.objects.all()
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username','email' ,'first_name','last_name']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+
 class SubjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SubjectForm, self).__init__(*args, **kwargs)
@@ -55,3 +73,43 @@ class FileForm(forms.ModelForm):
         fields = ('subject','title','description','file','teacher')
 
 
+class MultipleQuestionForm(forms.ModelForm):
+    question = forms.CharField(widget=CKEditorUploadingWidget())
+
+    def __init__(self, *args, **kwargs):
+        super(MultipleQuestionForm, self).__init__(*args, **kwargs)
+        activities = Activity.objects.all()
+        self.fields['activity'].choices = [(activity.pk, activity.title) for activity in activities]
+
+    class Meta:
+        model = MultipleQuestion
+        fields = '__all__'
+        exclude = ("timestamp",)
+
+
+class QuestionandAnswerForm(forms.ModelForm):
+    question = forms.CharField(widget=CKEditorUploadingWidget())
+
+    def __init__(self, *args, **kwargs):
+        super(QuestionandAnswerForm, self).__init__(*args, **kwargs)
+        activities = Activity.objects.all()
+        self.fields['activity'].choices = [(activity.pk, activity.title) for activity in activities]
+
+    class Meta:
+        model = QuestionandAnswer
+        fields = '__all__'
+        exclude = ("timestamp",)
+
+class QuestionandAnswerSheetForm(forms.ModelForm):
+    answer = forms.CharField(widget=CKEditorUploadingWidget())
+
+    def __init__(self, *args, **kwargs):
+        super(QuestionandAnswerSheetForm, self).__init__(*args, **kwargs)
+        questions = QuestionandAnswer.objects.all()
+        self.fields['question'].choices = [(question.pk, question.question) for question in questions]
+        self.fields['question'].widget.attrs.update({'type':'text','class':'form-control','id':'question'})
+
+    class Meta:
+        model = QuestionandAnswerSheet
+        fields = '__all__'
+        exclude = ("timestamp",)

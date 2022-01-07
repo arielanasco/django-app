@@ -1,0 +1,65 @@
+{% extends "learn/layout.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <form method="post">
+    {% csrf_token %}
+        {% if activity.is_multiple_choice %}
+            {% for question in questions %}
+                {% include "learn/student/components/multiple-choice-card.html" %}  
+            {% endfor %}
+        {% else %}
+            {% for form in formset %}
+            {% include "learn/student/components/question-and-answer-card.html" %}  
+            {% endfor %}
+
+        {% endif %}
+        <button
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#modal-add-question"
+        type="button"
+        >
+        Submit
+        </button>
+        {% include "learn/teacher/components/modal-reminder-before-submit.html" %}  
+    </form>
+</div>
+{% endblock content %}
+
+
+
+<!-- Activity Information -->
+{% block sidecontent %}
+
+<div class="container-fluid text-center mb-3">
+  <div class="card shadow p-0"">
+    <div class="card-body">
+      <h5 class="card-title">Activity No. {{activity.id}}</h5>
+      <p class="card-text">
+        {{activity.title}}
+      </p>      
+      <p class="card-text">
+        {{activity.description}}
+      </p>          
+      <p class="card-text">
+       Total Items: {{ questions | length }}
+      </p>    
+      <div class="d-grid gap-2 btn-group">
+        <button
+        class="btn btn-primary"
+        type="button"
+        onclick="location.href='{% url 'learn-home' %}'"
+        >
+        Submit
+        </button>          
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock sidecontent %}
+
+<!-- Activity Information -->
