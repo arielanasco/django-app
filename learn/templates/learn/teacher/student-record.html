@@ -1,0 +1,49 @@
+{% load custom_tags %}
+<div class="card shadow p-3 mb-3">
+    <div class="table-responsive">
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Subject</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+            <tr>
+            <th scope="row">{{subject.subject}}</th>
+            <td>{{subject.description}}</td>
+            <td>{{subject.timestamp}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card shadow p-3">
+    <div class="table-responsive">
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Subject</th>
+            <th scope="col">Activity</th>
+            <th scope="col">Name</th>
+            <th scope="col">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores|dictsort:"activity.subject.subject" %}
+            <tr>
+            <th scope="row">{{score.activity.subject}}</th>
+            <td>{{score.activity.title}}</td>
+            <th >{{score.student.get_full_name}}</th>
+            <td>{{score.score}}/{{score.total}}</td>
+            <td>{{score.score | rating:score.total}}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>

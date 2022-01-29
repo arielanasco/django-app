@@ -5,72 +5,13 @@
 <!-- Main Section -->
 {% block content %}
 <div class="container-fluid">
-  <div class="card shadow p-3">
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Subject</th>
-            <th scope="col">Activity 1</th>
-            <th scope="col">Activity 2</th>
-            <th scope="col">Activity 3</th>
-            <th scope="col">Activity 4</th>
-            <th scope="col">Activity 5</th>
-            <th scope="col">Activity 6</th>
-            <th scope="col">Final Score</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">GEAS</th>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-sm">
-                Review
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">MATH</th>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-sm">
-                Review
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">EST</th>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>10/10</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-sm">
-                Review
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  {% if user.is_staff %}
+    <h1 class="display-6">Student Record</h1>
+    {% include "learn/teacher/student-record.html" %}  
+  {% else %}
+    <h1 class="display-6">Score Card</h1>
+    {% include "learn/student/score-card.html" %}  
+  {% endif %}
 </div>
 
 {% endblock content %}

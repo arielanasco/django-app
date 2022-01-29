@@ -1,9 +1,8 @@
 from django import forms
-from .models import  Profile, Subject, Student, File , Activity , MultipleQuestion, QuestionandAnswer ,QuestionandAnswerSheet
+from .models import  Profile, Subject, Student, File , Activity , MultipleQuestion, QuestionandAnswer, QuestionandAnswerSheet, Score
 from django.contrib.admin import widgets
 from ckeditor_uploader.widgets import CKEditorUploadingWidget 
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 
 
 
@@ -111,5 +110,17 @@ class QuestionandAnswerSheetForm(forms.ModelForm):
 
     class Meta:
         model = QuestionandAnswerSheet
+        fields = '__all__'
+        exclude = ("timestamp",)
+    
+class ScoreForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ScoreForm, self).__init__(*args, **kwargs)
+        STUDENTS =  User.objects.filter(is_staff=False,is_active=True)
+        self.fields['student'].choices = [(user.pk, user.get_full_name()) for user in STUDENTS]
+
+    class Meta:
+        model = Score
         fields = '__all__'
         exclude = ("timestamp",)

@@ -1,3 +1,5 @@
 db.sqlite3
 migrations/
 media/
+django_project/__pycache__/
+learn/__pycache__/

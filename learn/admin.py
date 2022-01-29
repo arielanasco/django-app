@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import  Subject, Student, File ,Activity ,MultipleQuestion ,QuestionandAnswer, QuestionandAnswerSheet
-from .forms import SubjectForm,StudentForm ,FileForm, ActivityForm ,MultipleQuestionForm ,QuestionandAnswerForm ,QuestionandAnswerSheetForm
+from .models import  Subject, Student, File ,Activity ,MultipleQuestion ,QuestionandAnswer, QuestionandAnswerSheet, Score
+from .forms import SubjectForm,StudentForm ,FileForm, ActivityForm ,MultipleQuestionForm ,QuestionandAnswerForm ,QuestionandAnswerSheetForm, ScoreForm
 from django.contrib.auth.models import Group
 
 class SubjectData(admin.ModelAdmin):
@@ -14,13 +14,17 @@ class SubjectData(admin.ModelAdmin):
 
 class StudentData(admin.ModelAdmin):
     form = StudentForm
-    list_display = ('student_name', 'subject', 'timestamp')
+    list_display = ('student_name', 'subjects_list', 'timestamp')
     def student_name(self, obj):
         try:
             return obj.student.get_full_name()
         except:
             return obj.student.username
-
+    def subjects_list(self, obj):
+        try:
+           return "\n".join([a.subject for a in obj.subject.all()])
+        except:
+            return "Subjects"
 class ActivityData(admin.ModelAdmin):
     form = ActivityForm
     list_display = ('title','subject','teacher_name', 'description', 'is_multiple_choice','is_deployed')
@@ -51,7 +55,16 @@ class QuestionandAnswerSheetData(admin.ModelAdmin):
     list_display = ('question_list', 'answer')
     def question_list(self, obj):
         return 'User Answer'
-            
+
+class ScoreData(admin.ModelAdmin):
+    form = ScoreForm
+    list_display = ('student_name','activity','score','total')
+    def student_name(self, obj):
+        try:
+            return obj.student.get_full_name()
+        except:
+            return obj.student.username
+
 admin.site.site_header  =  "IMath Admin Portal"  
 admin.site.site_title  =  "IMath Admin Dashboard"
 admin.site.index_title  =  "IMath Admin Dashboard"
@@ -65,3 +78,4 @@ admin.site.register(Activity,ActivityData)
 admin.site.register(MultipleQuestion,MultipleQuestionData)
 admin.site.register(QuestionandAnswer,QuestionandAnswerData)
 admin.site.register(QuestionandAnswerSheet,QuestionandAnswerSheetData)
+admin.site.register(Score,ScoreData)

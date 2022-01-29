@@ -52,8 +52,8 @@ class Subject(models.Model):
         return f"{self.subject}"
 
 class Student(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
-    subject = models.OneToOneField(Subject, on_delete=models.CASCADE,max_length=100,null=True)
+    student = models.OneToOneField(User, on_delete=models.CASCADE,max_length=100,null=False)
+    subject = models.ManyToManyField(Subject)
     timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -65,10 +65,10 @@ class Student(models.Model):
         return f"{self.student.username}"
 
 class Activity(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,max_length=100)
-    teacher = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
-    title = models.CharField(max_length=100,null=False,unique=True)
-    description =  models.CharField(max_length=100,null=False)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,max_length=1000)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE,max_length=1000,null=False)
+    title = models.CharField(max_length=1000,null=False)
+    description =  models.CharField(max_length=1000,null=False)
     is_multiple_choice = models.BooleanField(default=True)
     is_deployed = models.BooleanField(default=False)
     timestamp = models.DateTimeField(default=timezone.now)
@@ -82,8 +82,8 @@ class Activity(models.Model):
 class File(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE,max_length=100)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
-    title = models.CharField(max_length=100,null=False)
-    description =  models.CharField(max_length=100,null=False)
+    title = models.CharField(max_length=1000,null=False)
+    description =  models.CharField(max_length=1000,null=False)
     file = models.FileField(upload_to="files",null=False)
     timestamp = models.DateTimeField(default=timezone.now)
 
@@ -125,7 +125,7 @@ class QuestionandAnswer(models.Model):
         verbose_name_plural = "Questions and Answers"
 
     def __str__(self):
-        return f"Question-{self.id}"
+        return f"QuestionandAnswer-{self.id}"
 
 
 class QuestionandAnswerSheet(models.Model):
@@ -137,4 +137,16 @@ class QuestionandAnswerSheet(models.Model):
         verbose_name_plural = "Question and Answer Sheets"
 
     def __str__(self):
-        return f"User-{self.id}"
+        return f"QuestionandAnswerSheet-{self.id}"
+
+class Score(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    student  = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
+    score    = models.IntegerField()
+    total    = models.IntegerField()
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = "Scores"
+    def __str__(self):
+        return f"Student-{self.student.get_full_name()}"

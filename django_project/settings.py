@@ -93,7 +93,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'django.cnf'),
+            'read_default_file': os.path.join(BASE_DIR, 'django.conf'),
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
             "autocommit": True,
         },
@@ -146,7 +146,6 @@ LOGIN_URL = 'login'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
 
 CKEDITOR_UPLOAD_PATH = "uploads"
 CKEDITOR_IMAGE_BACKEND = "pillow"
