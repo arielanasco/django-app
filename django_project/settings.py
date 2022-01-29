@@ -24,7 +24,7 @@ SECRET_KEY = '_@ir*v6x47y-jd(xd+iw=v4(9i+n8*9gh11!uutn2976&-ybs!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.8.107','https://ec2-52-194-221-133.ap-northeast-1.compute.amazonaws.com/','127.0.0.1','52.194.221.133']
+ALLOWED_HOSTS = ['192.168.8.107','ec2-52-194-221-133.ap-northeast-1.compute.amazonaws.com','127.0.0.1','52.194.221.133']
 
 
 from django.contrib.messages import constants as messages
