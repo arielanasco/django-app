@@ -1,12 +1,14 @@
 {% load custom_tags %}
 <div class="card shadow p-3">
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
+        <caption>Note: NA means the teacher needs to evaluate your answer first and grade it.</caption>
         <thead>
             <tr>
             <th scope="col">Subject</th>
             <th scope="col">Adviser</th>
             <th scope="col">Activity</th>
+            <th scope="col">Type</th>
             <th scope="col">Score</th>
             <th scope="col">Rating</th>
             <th scope="col">Action</th>
@@ -18,12 +20,37 @@
             <th scope="row">{{score.activity.subject}}</th>
             <td>{{score.activity.teacher.get_full_name}}</td>
             <td>{{score.activity.title}}</td>
-            <td>{{score.score}}/{{score.total}}</td>
-            <td>{{score.score | rating:score.total}}%</td>
             <td>
-                <button type="button" class="btn btn-primary btn-sm">
-                Review
-                </button>
+                {% if  score.activity.is_multiple_choice %}
+                    <span class="badge rounded-pill bg-info text-dark">Multiple Choice</span>
+                {% else %}
+                    <span class="badge rounded-pill bg-primary">Question and Answer</span>
+                {% endif %}
+            </td>
+            <td>{% if score.score|null_checker == "NA" %}
+                    NA
+                {% else %}
+                    {{score.score }}
+                {% endif %}
+            </td>
+            <td>{% if  score.activity.is_multiple_choice %}
+                    {{score.score | rating:score.total}}%</td>
+                {% else %}
+                    {{score.score}}%
+                {% endif %}
+            </td>
+            <td>
+                {% if activity.is_multiple_choice %}
+                    <button type="button" class="btn btn-primary btn-sm">
+                        Review
+                    </button>
+                {% else %}
+                    {% if score.score|null_checker == "NA"%}
+                        <span class="badge rounded-pill bg-warning text-dark">Pending</span>
+                    {% else %}
+                        <span class="badge rounded-pill bg-success">OK</span>
+                    {% endif %}
+                {% endif %}
             </td>
             </tr>
         {% endfor %}

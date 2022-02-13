@@ -1,0 +1,74 @@
+{% extends "learn/layout.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load static %}
+
+
+
+{%block content %}
+  <div class="container-fluid">
+    <div class="row p-0">
+      <h1 class="display-6">{{ user.get_full_name }}'s Answers</h1>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+      {% for user_answer in user_answers %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-heading{{user_answer.id | ordinal}}">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{user_answer.id | ordinal}}" aria-expanded="true" aria-controls="panelsStayOpen-collapse{{user_answer.id | ordinal}}">
+                Image {{forloop.counter}}
+            </button>
+            </h2>
+            <div id="panelsStayOpen-collapse{{user_answer.id | ordinal}}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading{{user_answer.id | ordinal}}">
+            <div class="accordion-body">
+                <div class="fluid overflow-auto mb-3">
+                    <img
+                    src="{{ user_answer.answer.url }}"
+                    class="img-fluid"
+                    alt="{{ user_answer.answer.url }}"
+                    />
+                </div>
+            </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+    </div>
+  </div>
+{% endblock content %} 
+
+
+
+{% block sidecontent %}
+<div class="container-fluid text-center mb-3">
+  <div class="card shadow p-0"">
+    <div class="card-body">
+      <h5 class="card-title">Activity No. {{activity.id}}</h5>
+      <p class="card-text">
+        {{activity.title}}
+      </p>      
+      <p class="card-text">
+        {{activity.description}}
+      </p>          
+    </div>
+  </div>
+</div>
+{% include "learn/common/profile-section.html" %} 
+
+<div class="container-fluid text-center mb-3">
+  <div class="card shadow p-0"">
+    <div class="card-body">
+        <h5 class="card-title">Rate activity</h5>
+        <form method="POST">
+        {% csrf_token %}
+        <div class="col-auto">
+            <label for="rating" class="visually-hidden">Rating</label>
+            <input type="number" class="form-control" name="rating" id="rating" placeholder="Rating">
+        </div>
+        <div class="col-auto mt-2">
+            <button type="submit" class="btn btn-primary mb-3">Confirm</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock sidecontent %}
+

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import  Subject, Student, File ,Activity ,MultipleQuestion ,QuestionandAnswer, QuestionandAnswerSheet, Score
-from .forms import SubjectForm,StudentForm ,FileForm, ActivityForm ,MultipleQuestionForm ,QuestionandAnswerForm ,QuestionandAnswerSheetForm, ScoreForm
+from .models import  Subject, Student, File ,Activity ,MultipleQuestion ,QuestionandAnswer, Score
+from .forms import SubjectForm,StudentForm ,FileForm, ActivityForm ,MultipleQuestionForm ,QuestionandAnswerForm , ScoreForm
 from django.contrib.auth.models import Group
 
 class SubjectData(admin.ModelAdmin):
@@ -50,11 +50,6 @@ class QuestionandAnswerData(admin.ModelAdmin):
     def question_list(self, obj):
         return 'Question'
 
-class QuestionandAnswerSheetData(admin.ModelAdmin):
-    form = QuestionandAnswerSheetForm
-    list_display = ('question_list', 'answer')
-    def question_list(self, obj):
-        return 'User Answer'
 
 class ScoreData(admin.ModelAdmin):
     form = ScoreForm
@@ -77,5 +72,4 @@ admin.site.register(File,FileData)
 admin.site.register(Activity,ActivityData)
 admin.site.register(MultipleQuestion,MultipleQuestionData)
 admin.site.register(QuestionandAnswer,QuestionandAnswerData)
-admin.site.register(QuestionandAnswerSheet,QuestionandAnswerSheetData)
 admin.site.register(Score,ScoreData)

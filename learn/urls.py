@@ -13,6 +13,8 @@ urlpatterns = [
     path('view-subject-student/<int:id>/', views.view_subject, name='view-subject-student'),
     path('view-subject-teacher/<int:id>/', views.view_subject, name='view-subject-teacher'),
     path('answer-activity/<int:id>/', views.answer_activity, name='answer-activity'),
+    path('question-and-answer-submit/<int:id>/<int:total>/', views.question_and_answer_submit, name='question-and-answer-submit'),
+    path('evaluate/<int:activity>/<int:user>', views.evaluate, name='evaluate')
 
 
 

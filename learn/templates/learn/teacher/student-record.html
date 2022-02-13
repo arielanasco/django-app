@@ -1,7 +1,8 @@
 {% load custom_tags %}
 <div class="card shadow p-3 mb-3">
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
+        <caption>List of registered subjects</caption>
         <thead>
             <tr>
             <th scope="col">Subject</th>
@@ -24,14 +25,17 @@
 
 <div class="card shadow p-3">
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
+        <caption>Note: NA means the teacher needs to evaluate your answer first and grade it.</caption>
         <thead>
             <tr>
             <th scope="col">Subject</th>
             <th scope="col">Activity</th>
+            <th scope="col">Type</th>
             <th scope="col">Name</th>
             <th scope="col">Score</th>
             <th scope="col">Rating</th>
+            <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -39,9 +43,39 @@
             <tr>
             <th scope="row">{{score.activity.subject}}</th>
             <td>{{score.activity.title}}</td>
+            <td>
+                {% if  score.activity.is_multiple_choice %}
+                    <span class="badge rounded-pill bg-info text-dark">Multiple Choice</span>
+                {% else %}
+                    <span class="badge rounded-pill bg-primary">Question and Answer</span>
+                {% endif %}
+            </td>
             <th >{{score.student.get_full_name}}</th>
-            <td>{{score.score}}/{{score.total}}</td>
-            <td>{{score.score | rating:score.total}}%</td>
+            <td>{% if score.score|null_checker == "NA" %}
+                    NA
+                {% else %}
+                    {{score.score }}
+                    {% endif %}
+            </td>
+            <td>{% if  score.activity.is_multiple_choice %}
+                    {{score.score | rating:score.total}}%</td>
+                {% else %}
+                    {{score.score}}%
+                {% endif %}
+            <td>
+                {% if  not score.activity.is_multiple_choice and score.score|null_checker == "NA" %}
+                    <button 
+                        type="button" 
+                        class="btn btn-primary btn-sm"
+                        onclick="location.href='{% url 'evaluate'  score.activity.id  score.student.id %}'"
+
+                    >
+                        Check
+                    </button>
+                {% else %}
+                    <span class="badge rounded-pill bg-success">OK</span>
+                {% endif %}
+            </td>
             </tr>
             {% endfor %}
         </tbody>

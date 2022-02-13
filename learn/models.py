@@ -1,3 +1,4 @@
+from turtle import Turtle
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -127,22 +128,26 @@ class QuestionandAnswer(models.Model):
     def __str__(self):
         return f"QuestionandAnswer-{self.id}"
 
-
-class QuestionandAnswerSheet(models.Model):
-    question = models.ForeignKey(QuestionandAnswer, on_delete=models.CASCADE)
-    answer = RichTextUploadingField(max_length=1000, null=False)
+class ImageSheet(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    student  = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100)
+    answer = models.ImageField(upload_to="users_answers")
     timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        verbose_name_plural = "Question and Answer Sheets"
+        verbose_name_plural = "Images Sheet"
 
     def __str__(self):
-        return f"QuestionandAnswerSheet-{self.id}"
+        return f"Image-{self.id}"
+    
+    def delete(self, *args, **kwargs):
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.answer.name))
+        super(ImageSheet,self).delete(*args,**kwargs)
 
 class Score(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     student  = models.ForeignKey(User, on_delete=models.CASCADE,max_length=100,null=False)
-    score    = models.IntegerField()
+    score    = models.IntegerField(null=True)
     total    = models.IntegerField()
     timestamp = models.DateTimeField(default=timezone.now)
 

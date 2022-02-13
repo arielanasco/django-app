@@ -1,15 +1,17 @@
+from datetime import datetime
 from re import sub
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Subject,Student,File,Activity ,MultipleQuestion, QuestionandAnswer, Score
+from .models import Subject,Student,File,Activity ,MultipleQuestion, QuestionandAnswer, Score , ImageSheet
 from django.contrib.auth.models import User
-from .forms import UserUpdateForm, ProfileUpdateForm, FileForm, ActivityForm, MultipleQuestionForm, QuestionandAnswerForm, QuestionandAnswerSheetForm
+from .forms import UserUpdateForm, ProfileUpdateForm, FileForm, ActivityForm, MultipleQuestionForm, QuestionandAnswerForm, ImageSheetForm
 import os
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms import formset_factory
+import datetime
 
 @login_required
 def profile(request):
@@ -242,33 +244,69 @@ def answer_activity(request,id):
             else:
                 user_score = Score(activity=activity, student=request.user, score=ctr, total=len(answers))
                 user_score.save()
-                messages.error(request,"Score recorded")
+                messages.success(request,"Score recorded")
                 return redirect('profile')
-            # try:
-            #     user_score = Score.objects.get(activity=activity, student=request.user)
-            #     user_score.score=ctr
-            #     user_score.save()
-            # except:
-            #     user_score = Score(activity=activity, student=request.user, score=ctr, total=len(answers))
-            #     user_score.save()
-            # return redirect('profile')
         else:
-            messages.error(request,"Question and Answer option is not available now")
-            return redirect('profile')
-    
-    if activity.is_multiple_choice:
-        questions = MultipleQuestion.objects.filter(activity=activity.id)
-        context = {
-            'activity': activity,
-            'questions' : questions
-        }
-        return render(request, 'learn/student/answer-activity.html' , context)
+
+            images = ImageSheetForm(request.POST,request.FILES)
+            if images.is_valid():
+                images.save()
+            else:
+                print(f"Error? {images.errors}")
+            return redirect(request.META.get('HTTP_REFERER'))
     else:
-        questions = QuestionandAnswer.objects.filter(activity=activity.id).values_list('question')
-        QuestionandAnswerSheetFormSet = formset_factory(QuestionandAnswerSheetForm, extra=len(questions))
-        formset = QuestionandAnswerSheetFormSet()
-        context = {
-            'activity': activity,
-            'formset': formset
-        }
-        return render(request, 'learn/student/answer-activity.html' , context)
+        if activity.is_multiple_choice:
+            questions = MultipleQuestion.objects.filter(activity=activity.id)
+            context = {
+                'activity': activity,
+                'questions' : questions
+            }
+            return render(request, 'learn/student/answer-activity.html' , context)
+        else:
+            questions = QuestionandAnswer.objects.filter(activity=activity.id)
+            answer_images = ImageSheet.objects.filter(activity=activity.id,student=request.user)
+            images = ImageSheetForm({'activity': activity.id,
+                                    'student' : request.user
+                                    })
+            images.fields['activity'].widget.attrs['hidden'] = True
+            images.fields['student'].widget.attrs['hidden'] = True
+            images.fields['answer'].widget.attrs.update({'class': 'form-control','type':'text', 'id':'file'})
+            context = {
+                'activity': activity,
+                'questions': questions,
+                'answer_images':answer_images,
+                'images': images
+            }
+            return render(request, 'learn/student/answer-activity.html' , context)
+
+@login_required
+def question_and_answer_submit(request,id,total):
+    activity = Activity.objects.get(id=id)
+    user_score = Score(activity=activity, student=request.user, score=None , total=total)
+    user_score.save()
+    messages.info(request,"Score is pending but your answer has been recorded for checking...")
+    return redirect('profile')
+
+@login_required
+def evaluate(request,activity,user):
+    user = User.objects.get(id=user)
+    activity = Activity.objects.get(id=activity)
+    user_answers = ImageSheet.objects.filter(student = user, activity = activity)
+
+
+    if request.method == 'POST':
+        user_score = Score.objects.get(activity=activity, student = user, score = None)
+        user_score.score = request.POST.get("rating")
+        user_score.save()
+        for user_answer in user_answers:
+            user_answer.delete()
+        messages.success(request,"Score recorded")
+        return redirect('profile')
+
+    context = {
+        'activity':activity,
+        'user' :user,
+        'user_answers':user_answers
+
+    }
+    return render(request, 'learn/teacher/evaluate.html',context)

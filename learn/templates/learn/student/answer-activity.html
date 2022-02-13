@@ -2,40 +2,30 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 {% load static %}
-<script>
-    window.location.hash = "no-back-button";
 
-    // Again because Google Chrome doesn't insert
-    // the first hash into the history
-    window.location.hash = "Again-No-back-button"; 
-
-    window.onhashchange = function(){
-        window.location.hash = "no-back-button";
-    }
-</script>
 {% block content %}
 <div class="container-fluid">
+  {% if activity.is_multiple_choice %}
     <form method="post">
-    {% csrf_token %}
-        {% if activity.is_multiple_choice %}
-            {% for question in questions %}
-                {% include "learn/student/components/multiple-choice-card.html" %}  
-            {% endfor %}
-        {% else %}
-            {% for form in formset %}
-            {% include "learn/student/components/question-and-answer-card.html" %}  
-            {% endfor %}
-        {% endif %}
-        <button
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modal-add-question"
-        type="button"
-        >
-        Submit
-        </button>
-        {% include "learn/student/components/modal-reminder-before-submit.html" %}  
+      {% csrf_token %}
+      {% for question in questions %}
+          {% include "learn/student/components/multiple-choice-card.html" %}  
+      {% endfor %}
+      <button
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#modal-add-question"
+      type="button"
+      >
+      Submit
+      </button>
+      {% include "learn/student/components/modal-reminder-before-submit.html" %}  
     </form>
+  {% else %}
+      {% for question in questions %}
+        {% include "learn/student/components/question-and-answer-card.html" %}  
+      {% endfor %}
+  {% endif %}
 </div>
 {% endblock content %}
 
@@ -43,7 +33,6 @@
 
 <!-- Activity Information -->
 {% block sidecontent %}
-
 <div class="container-fluid text-center mb-3">
   <div class="card shadow p-0"">
     <div class="card-body">
@@ -55,11 +44,73 @@
         {{activity.description}}
       </p>          
       <p class="card-text">
-       Total Items: {{ questions | length }}
+       Total Items: {{ questions|length }}
       </p>    
     </div>
   </div>
 </div>
+
+{% if not activity.is_multiple_choice %}
+  {% if answer_images.count < 5 %}
+    <div class="container-fluid mb-3">
+      <div class="card shadow p-0"">
+        <div class="card-body">
+          <h5 class="card-title">Upload section</h5>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}  
+              {{ images.activity }}
+              {{ images.student }}
+              {{ images.answer }}
+              <button
+              class="btn btn-primary mt-2"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-add-question"
+              type="button"
+              >
+              Upload
+              </button>
+            {% include "learn/student/components/modal-reminder-before-submit.html" %}  
+            </form>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container-fluid mb-3">
+      <div class="card shadow p-0"">
+        <div class="card-body">
+          <h5 class="card-title">Upload section</h5>
+            <p class="text-muted">Upload limit reached. Maximum of 5 image only.</p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="container-fluid mb-3">
+    <div class="card shadow p-0"">
+      <div class="card-body">
+        <h5 class="card-title">Uploaded Image</h5>
+          <ol class="list-group list-group-numbered">
+          {% for image in answer_images %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">             
+                   <a href="{{ image.answer.url }}" target="_blank">Image {{forloop.counter}}</a>
+                </div>
+              </div>
+              <button type="button" class="btn btn-danger btn-sm">X</button>
+            </li>
+          {% endfor %}
+          </ol>
+          <button
+          class="btn btn-primary mt-2"
+          onclick="location.href='{% url 'question-and-answer-submit'  activity.id  questions|length %}'"
+          type="button"
+          >
+          Submit
+          </button>
+      </div>
+    </div>
+  </div>
+{% endif %}
 {% endblock sidecontent %}
 
 <!-- Activity Information -->

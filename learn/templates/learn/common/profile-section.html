@@ -15,15 +15,17 @@
       {% else %}
       <p class="badge bg-secondary">Student</p>
       {% endif %}
-      <p class="text-muted">
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          onclick="location.href='{% url 'profile'  %}'"
-        >
-          View Profile
-        </button>
-      </p>
+      {%if user.id == request.user.id %}
+        <p class="text-muted">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onclick="location.href='{% url 'profile'  %}'"
+          >
+            View Profile
+          </button>
+        </p>
+      {% endif %}
       <p class="card-text">
         <small class="text-muted"
           >Latest logged in {{user.last_login | timesince }} ago

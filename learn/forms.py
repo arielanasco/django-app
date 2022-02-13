@@ -1,5 +1,5 @@
 from django import forms
-from .models import  Profile, Subject, Student, File , Activity , MultipleQuestion, QuestionandAnswer, QuestionandAnswerSheet, Score
+from .models import  Profile, Subject, Student, File , Activity , MultipleQuestion, QuestionandAnswer, Score ,ImageSheet
 from django.contrib.admin import widgets
 from ckeditor_uploader.widgets import CKEditorUploadingWidget 
 from django.contrib.auth.models import User
@@ -99,20 +99,19 @@ class QuestionandAnswerForm(forms.ModelForm):
         fields = '__all__'
         exclude = ("timestamp",)
 
-class QuestionandAnswerSheetForm(forms.ModelForm):
-    answer = forms.CharField(widget=CKEditorUploadingWidget())
-
+class ImageSheetForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(QuestionandAnswerSheetForm, self).__init__(*args, **kwargs)
-        questions = QuestionandAnswer.objects.all()
-        self.fields['question'].choices = [(question.pk, question.question) for question in questions]
-        self.fields['question'].widget.attrs.update({'type':'text','class':'form-control','id':'question'})
-
+        super(ImageSheetForm, self).__init__(*args, **kwargs)  
+        # q_and_a = QuestionandAnswerSheet.objects.all()
+        # self.fields['question_and_answer'].choices = [(qa.pk) for qa in q_and_a]
+        activities = Activity.objects.all()
+        self.fields['activity'].choices = [(activity.pk, activity.title) for activity in activities]
+        
     class Meta:
-        model = QuestionandAnswerSheet
+        model = ImageSheet
         fields = '__all__'
         exclude = ("timestamp",)
-    
+
 class ScoreForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
