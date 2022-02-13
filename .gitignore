@@ -4,3 +4,4 @@ django_project/__pycache__/
 learn/__pycache__/
 learn/migrations/
 media/uploads/
+media/users_answer/
