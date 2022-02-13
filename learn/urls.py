@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
 urlpatterns = [
     path('', views.home, name='learn-home'),
@@ -16,6 +17,5 @@ urlpatterns = [
     path('question-and-answer-submit/<int:id>/<int:total>/', views.question_and_answer_submit, name='question-and-answer-submit'),
     path('evaluate/<int:activity>/<int:user>/', views.evaluate, name='evaluate'),
     path('delete-image/<int:id>/', views.delete_image, name='delete-image')
-
 ]
 
