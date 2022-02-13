@@ -96,12 +96,18 @@
                    <a href="{{ image.answer.url }}" target="_blank">Image {{forloop.counter}}</a>
                 </div>
               </div>
-              <button type="button" class="btn btn-danger btn-sm">X</button>
+              <button 
+                type="button" 
+                class="btn btn-danger btn-sm"
+                onclick="location.href='{% url 'delete-image'  image.id %}'"
+              >
+                X
+              </button>
             </li>
           {% endfor %}
           </ol>
           <button
-          class="btn btn-primary mt-2"
+          class="btn btn-primary mt-2 {% if answer_images|length == 0 %}disabled{% endif %}"
           onclick="location.href='{% url 'question-and-answer-submit'  activity.id  questions|length %}'"
           type="button"
           >

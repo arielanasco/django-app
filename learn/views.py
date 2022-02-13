@@ -310,3 +310,13 @@ def evaluate(request,activity,user):
 
     }
     return render(request, 'learn/teacher/evaluate.html',context)
+
+@login_required
+def delete_image(request,id):
+    try:
+        user_answers = ImageSheet.objects.filter(id=id)
+        user_answers.delete()
+        messages.success(request,"Successfully delete the image...")
+    except:
+        messages.error(request,"No image in the files.")
+    return redirect(request.META.get('HTTP_REFERER'))
