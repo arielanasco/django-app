@@ -28,8 +28,11 @@ SECRET_KEY = config_file.get('key','SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['gingineer.xyz','18.180.125.31']
+ALLOWED_HOSTS = ['gingineer.xyz','18.180.125.31', '127.0.0.1']
 
+# gmail : imath.do.not.reply@gmail.com
+# clXtZcnXmTsnRdki
+ADMINS = [("Admin","imath.do.not.reply@gmail.com")] 
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
