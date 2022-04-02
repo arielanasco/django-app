@@ -41,7 +41,7 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
-    }
+}
 
 
 # Application definition

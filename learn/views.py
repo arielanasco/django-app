@@ -1,5 +1,3 @@
-from datetime import datetime
-from re import sub
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,10 +6,8 @@ from django.contrib.auth.models import User
 from .forms import UserUpdateForm, ProfileUpdateForm, FileForm, ActivityForm, MultipleQuestionForm, QuestionandAnswerForm, ImageSheetForm
 import os
 from django.conf import settings
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.forms import formset_factory
-import datetime
 
 @login_required
 def profile(request):
