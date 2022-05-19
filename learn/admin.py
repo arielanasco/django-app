@@ -66,11 +66,19 @@ admin.site.index_title  =  "Admin Dashboard"
 
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+# @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     def get_queryset(self, request):
         qs = super(UserAdmin, self).get_queryset(request)
-        return qs.filter(is_superuser=False)
-    
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(is_superuser=False)  
+         
+# class UserAdmin(admin.ModelAdmin):
+#     def get_queryset(self, request):
+#         qs = super(UserAdmin, self).get_queryset(request)
+#         qs = qs.filter(is_superuser=False)
+#         return qs
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Subject,SubjectData)
