@@ -64,14 +64,15 @@ admin.site.site_header  =  "Admin Portal"
 admin.site.site_title  =  "Admin Dashboard"
 admin.site.index_title  =  "Admin Dashboard"
 
-class UserAdmin(admin.ModelAdmin):
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
+class UserAdmin(BaseUserAdmin):
     def get_queryset(self, request):
         qs = super(UserAdmin, self).get_queryset(request)
-        qs = qs.filter(is_superuser=False)
-        return qs
-
-# admin.site.register(User)
-# admin.site.register(User, UserAdmin)
+        return qs.filter(is_superuser=False)
+    
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 admin.site.register(Subject,SubjectData)
 admin.site.register(Student,StudentData)
 admin.site.register(File,FileData)
