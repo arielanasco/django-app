@@ -70,8 +70,8 @@ class UserAdmin(admin.ModelAdmin):
         qs = qs.filter(is_superuser=False)
         return qs
 
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+# admin.site.register(User)
+# admin.site.register(User, UserAdmin)
 admin.site.register(Subject,SubjectData)
 admin.site.register(Student,StudentData)
 admin.site.register(File,FileData)
