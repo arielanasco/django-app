@@ -70,10 +70,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 class UserAdmin(BaseUserAdmin):
     def get_queryset(self, request):
         qs = super(UserAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(is_superuser=False)  
-         
+        if not request.user.is_superuser:
+            return qs.filter(is_superuser=False)
+        return qs    
 # class UserAdmin(admin.ModelAdmin):
 #     def get_queryset(self, request):
 #         qs = super(UserAdmin, self).get_queryset(request)
