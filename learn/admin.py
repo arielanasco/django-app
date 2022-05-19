@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import  Subject, Student, File ,Activity ,MultipleQuestion ,QuestionandAnswer, Score
 from .forms import SubjectForm,StudentForm ,FileForm, ActivityForm ,MultipleQuestionForm ,QuestionandAnswerForm , ScoreForm
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import  User
 
 class SubjectData(admin.ModelAdmin):
     form = SubjectForm
@@ -64,8 +64,14 @@ admin.site.site_header  =  "IMath Admin Portal"
 admin.site.site_title  =  "IMath Admin Dashboard"
 admin.site.index_title  =  "IMath Admin Dashboard"
 
+class UserAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super(UserAdmin, self).get_queryset(request)
+        qs = qs.filter(is_superuser=False)
+        return qs
 
-admin.site.unregister(Group)
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 admin.site.register(Subject,SubjectData)
 admin.site.register(Student,StudentData)
 admin.site.register(File,FileData)
