@@ -8,6 +8,7 @@
             <th scope="col">Subject</th>
             <th scope="col">Description</th>
             <th scope="col">Created</th>
+            <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,13 @@
             <th scope="row">{{subject.subject}}</th>
             <td>{{subject.description}}</td>
             <td>{{subject.timestamp}}</td>
+            <td>
+                <button type="button" 
+                    class="btn btn-primary btn-sm"
+                    onclick="location.href='{% url 'download-csv' subject.subject %}'"
+                >Download
+                </button>
+            </td>
             </tr>
             {% endfor %}
         </tbody>

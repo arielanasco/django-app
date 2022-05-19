@@ -26,7 +26,7 @@ config_file.read(SETTINGS_FILE)
 SECRET_KEY = config_file.get('key','SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['gingineer.xyz','18.180.125.31', '127.0.0.1']
 

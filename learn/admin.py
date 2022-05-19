@@ -60,9 +60,9 @@ class ScoreData(admin.ModelAdmin):
         except:
             return obj.student.username
 
-admin.site.site_header  =  "IMath Admin Portal"  
-admin.site.site_title  =  "IMath Admin Dashboard"
-admin.site.index_title  =  "IMath Admin Dashboard"
+admin.site.site_header  =  "Admin Portal"  
+admin.site.site_title  =  "Admin Dashboard"
+admin.site.index_title  =  "Admin Dashboard"
 
 class UserAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
