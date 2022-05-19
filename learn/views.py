@@ -325,21 +325,25 @@ import csv
 def download_csv(request, id):
     subject = Subject.objects.get(subject=id)
     activities = Activity.objects.filter(subject=subject.id)
-    response = HttpResponse(content_type = 'text/csv')
-    response['Content-Disposition'] = f'attachment; filename={subject}.csv'
-    writer = csv.writer(response)
-    list_activity = list(activities.values_list('title', flat=True))
-    list_activity_id= list(activities.values_list('id', flat=True))
-    writer.writerow(['Student Name']+list_activity)
-    list_students = Score.objects.filter(activity__subject=subject).values_list('student', flat=True).distinct()
-    for student in list_students:
-        user = User.objects.get(id=student)
-        u_score =[]
-        scores = Score.objects.filter(student=int(student), activity__subject=subject).values_list('activity__id','score')
-        for id in list_activity_id:
-            for score in scores:
-                if id == score[0]:
-                    u_score.append(score[1])
-                    break
-        writer.writerow([user.first_name +" "+user.last_name] + u_score)
-    return response
+    if activities:
+        response = HttpResponse(content_type = 'text/csv')
+        response['Content-Disposition'] = f'attachment; filename={subject}.csv'
+        writer = csv.writer(response)
+        list_activity = list(activities.values_list('title', flat=True))
+        list_activity_id= list(activities.values_list('id', flat=True))
+        writer.writerow(['Student Name']+list_activity)
+        list_students = Score.objects.filter(activity__subject=subject).values_list('student', flat=True).distinct()
+        for student in list_students:
+            user = User.objects.get(id=student)
+            u_score =[]
+            scores = Score.objects.filter(student=int(student), activity__subject=subject).values_list('activity__id','score')
+            for id in list_activity_id:
+                for score in scores:
+                    if id == score[0]:
+                        u_score.append(score[1])
+                        break
+            writer.writerow([user.first_name +" "+user.last_name] + u_score)
+        return response
+    else:
+        messages.error(request,"No activities yet.")
+        return redirect(request.META.get('HTTP_REFERER'))
