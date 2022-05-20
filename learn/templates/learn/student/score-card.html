@@ -51,7 +51,7 @@
                 {% if score.activity.is_multiple_choice %}
                     <button type="button" 
                             class="btn btn-primary btn-sm"
-                            onclick="location.href='{% url 'view-answer' score.activity.id %}'"
+                            onclick="window.open('{% url 'view-answer' score.activity.id %}','_blank')""
                     >
                         Review
                     </button>
