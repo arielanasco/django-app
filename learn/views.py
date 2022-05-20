@@ -347,3 +347,14 @@ def download_csv(request, id):
     else:
         messages.error(request,"No activities yet.")
         return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def view_answer(request, id):
+    print(f"This activity id is {id}")
+    activity = Activity.objects.get(id=id)
+    answer_key = MultipleQuestion.objects.filter(activity=id)
+    context = {
+        'activity':activity,
+        'answer_key': answer_key,
+    }
+    return render(request, 'learn/student/view-answer.html', context )

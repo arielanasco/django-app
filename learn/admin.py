@@ -72,11 +72,6 @@ class UserAdmin(BaseUserAdmin):
         qs = super(UserAdmin, self).get_queryset(request)
         return qs.filter(is_superuser=False)    
 
-# class UserAdmin(admin.ModelAdmin):
-#     def get_queryset(self, request):
-#         qs = super(UserAdmin, self).get_queryset(request)
-#         qs = qs.filter(is_superuser=False)
-#         return qs
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Subject,SubjectData)

@@ -3,27 +3,31 @@
         <div class="overflow-auto text-center my-2">{{question.question | safe}}</div>
         <div class="input-group mb-3">
             <div class="input-group-text">
-                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="A" aria-label="Checkbox for following text input">
+                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="A" aria-label="Checkbox for following text input"  {% if question.ans == "A" %} checked {% else %} disabled {% endif %}>
             </div>
             <div class="form-control"> {{question.choice_a}}</div>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-text">
-                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="B" aria-label="Checkbox for following text input">
+                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="B" aria-label="Checkbox for following text input"  {% if question.ans == "B" %} checked {% else %} disabled {% endif %}>
             </div>
             <div class="form-control"> {{question.choice_b}}</div>
         </div> 
         <div class="input-group mb-3">
             <div class="input-group-text">
-                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="C" aria-label="Checkbox for following text input">
+                <input class="form-check-input mt-0" type="radio"  name="option{{question.id}}" value="C" aria-label="Checkbox for following text input"  {% if question.ans == "C" %} checked {% else %} disabled {% endif %}>
             </div>
             <div class="form-control"> {{question.choice_c}}</div>
         </div> 
         <div class="input-group mb-3">
             <div class="input-group-text">
-                <input class="form-check-input mt-0" type="radio" name="option{{question.id}}" value="D" aria-label="Checkbox for following text input">
+                <input class="form-check-input mt-0" type="radio" name="option{{question.id}}" value="D" aria-label="Checkbox for following text input"  {% if question.ans == "D" %} checked {% else %} disabled {% endif %}>
             </div>
             <div class="form-control"> {{question.choice_d}}</div>
         </div> 
+        <label for="ans_exp" class="form-label">Explanation:</label>
+        <div class="input-group mb-3">
+            {{question.ans_exp}}
+        </div>
     </div>
 </div>

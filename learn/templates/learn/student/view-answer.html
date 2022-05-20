@@ -1,0 +1,36 @@
+{% extends "learn/layout.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    {% for question in answer_key %}
+        {% include "learn/student/components/multiple-choice-card.html" %}  
+    {% endfor %}
+</div>
+{% endblock content %}
+
+
+
+<!-- Activity Information -->
+{% block sidecontent %}
+<div class="container-fluid text-center mb-3">
+  <div class="card shadow p-0"">
+    <div class="card-body">
+      <h5 class="card-title">Activity No. {{activity.id}}</h5>
+      <p class="card-text">
+        {{activity.title}}
+      </p>      
+      <p class="card-text">
+        {{activity.description}}
+      </p>          
+      <p class="card-text">
+       Total Items: {{ answer_key|length }}
+      </p>    
+    </div>
+  </div>
+</div>
+{% endblock sidecontent %}
+
+<!-- Activity Information -->

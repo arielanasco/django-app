@@ -11,6 +11,7 @@
             <th scope="col">Type</th>
             <th scope="col">Score</th>
             <th scope="col">Rating</th>
+            <th scope="col">Status</th>
             <th scope="col">Action</th>
             </tr>
         </thead>
@@ -40,16 +41,22 @@
                 {% endif %}
             </td>
             <td>
-                {% if activity.is_multiple_choice %}
-                    <button type="button" class="btn btn-primary btn-sm">
+                {% if score.score|null_checker == "NA"%}
+                    <span class="badge rounded-pill bg-warning text-dark">Pending</span>
+                {% else %}
+                    <span class="badge rounded-pill bg-success">OK</span>
+                {% endif %}
+            </td>            
+            <td>
+                {% if score.activity.is_multiple_choice %}
+                    <button type="button" 
+                            class="btn btn-primary btn-sm"
+                            onclick="location.href='{% url 'view-answer' score.activity.id %}'"
+                    >
                         Review
                     </button>
                 {% else %}
-                    {% if score.score|null_checker == "NA"%}
-                        <span class="badge rounded-pill bg-warning text-dark">Pending</span>
-                    {% else %}
-                        <span class="badge rounded-pill bg-success">OK</span>
-                    {% endif %}
+                    <span class="badge rounded-pill bg-success">N/A</span>
                 {% endif %}
             </td>
             </tr>
