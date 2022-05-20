@@ -31,7 +31,7 @@
             <td>{% if score.score|null_checker == "NA" %}
                     NA
                 {% else %}
-                    {{score.score }}
+                    {% if score.score %}{{score.score}}% {% else %} 0% {% endif %}
                 {% endif %}
             </td>
             <td>{% if  score.activity.is_multiple_choice %}
