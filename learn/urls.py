@@ -17,7 +17,7 @@ urlpatterns = [
     path('question-and-answer-submit/<int:id>/<int:total>/', views.question_and_answer_submit, name='question-and-answer-submit'),
     path('evaluate/<int:activity>/<int:user>/', views.evaluate, name='evaluate'),
     path('delete-image/<int:id>/', views.delete_image, name='delete-image'),
-    path('download-csv/<str:subject>/', views.download_csv, name='download-csv'),
+    path('download-csv/<str:id>/', views.download_csv, name='download-csv'),
     path('view-answer/<int:id>/', views.view_answer, name='view-answer'),
 ]
 
