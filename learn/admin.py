@@ -72,6 +72,9 @@ class UserAdmin(BaseUserAdmin):
         qs = super(UserAdmin, self).get_queryset(request)
         return qs.exclude(username='imath')    
 
+from django.contrib.auth.models import Group
+
+admin.site.unregister(Group)
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Subject,SubjectData)
